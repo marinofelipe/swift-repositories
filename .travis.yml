@@ -24,10 +24,10 @@ before_install:
 
 install:
 - pod repo update --silent
-- pod install --project-directory=SwiftRepositories
+- pod install
 
 script:
-- set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace SwiftRepositories/SwiftRepositories.xcworkspace -scheme SwiftRepositories -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 7' ONLY_ACTIVE_ARCH=YES | xcpretty
+- set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace SwiftRepositories.xcworkspace -scheme SwiftRepositories -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 7' ONLY_ACTIVE_ARCH=YES | xcpretty
 
 after_success: 
 - cd $TRAVIS_BUILD_DIR && slather
