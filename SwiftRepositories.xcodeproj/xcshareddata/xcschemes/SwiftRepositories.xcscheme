@@ -30,6 +30,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       codeCoverageEnabled = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D53E0CEE2047AAF500DC8759"
+               BuildableName = "SwiftRepositoriesTests.xctest"
+               BlueprintName = "SwiftRepositoriesTests"
+               ReferencedContainer = "container:SwiftRepositories.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
