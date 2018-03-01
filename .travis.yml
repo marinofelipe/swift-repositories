@@ -1,0 +1,33 @@
+# references:
+# * http://www.objc.io/issue-6/travis-ci.html
+# * https://github.com/supermarin/xcpretty#usage
+
+osx_image: xcode9
+language: objective-c
+
+cache:
+- bundler
+- cocoapods
+
+# whitelist
+branches:
+     only:
+     - master
+
+# cache: cocoapods
+# podfile: Example/Podfile
+before_install:
+- rvm use $RVM_RUBY_VERSION
+- gem install cocoapods # Since Travis is not always on latest version
+- gem install slather
+- gem install coveralls
+
+install:
+- pod repo update --silent
+- pod install --project-directory=SwiftRepositories
+
+script:
+- set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace SwiftRepositories/SwiftRepositories.xcworkspace -scheme SwiftRepositories -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 7' ONLY_ACTIVE_ARCH=YES | xcpretty
+
+after_success: 
+- cd $TRAVIS_BUILD_DIR && slather
