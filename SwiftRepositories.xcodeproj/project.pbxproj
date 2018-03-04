@@ -22,6 +22,15 @@
 		D53E0D0F2047C87600DC8759 /* RepositoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D0E2047C87600DC8759 /* RepositoriesViewController.swift */; };
 		D53E0D112047C88C00DC8759 /* PullRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D102047C88C00DC8759 /* PullRequestsViewController.swift */; };
 		D53E0D132047C90000DC8759 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D122047C90000DC8759 /* WebViewController.swift */; };
+		D53E0D162047D39D00DC8759 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D152047D39D00DC8759 /* UINavigationController.swift */; };
+		D53E0D64204A769F00DC8759 /* CustomGridFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D63204A769F00DC8759 /* CustomGridFlowLayout.swift */; };
+		D53E0D66204A773F00DC8759 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D65204A773F00DC8759 /* FavoritesViewController.swift */; };
+		D53E0D68204A77CD00DC8759 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D67204A77CD00DC8759 /* Repository.swift */; };
+		D53E0D6A204A792000DC8759 /* RepositoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D69204A792000DC8759 /* RepositoriesViewModel.swift */; };
+		D53E0D6C204A7C1200DC8759 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D6B204A7C1200DC8759 /* BaseViewController.swift */; };
+		D53E0D6E204A7D1800DC8759 /* RepositoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D6D204A7D1800DC8759 /* RepositoryCollectionViewCell.swift */; };
+		D53E0D70204B45BF00DC8759 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D6F204B45BF00DC8759 /* UIImage.swift */; };
+		D53E0D72204B8AC200DC8759 /* UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D71204B8AC200DC8759 /* UITabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +67,15 @@
 		D53E0D0E2047C87600DC8759 /* RepositoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesViewController.swift; sourceTree = "<group>"; };
 		D53E0D102047C88C00DC8759 /* PullRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsViewController.swift; sourceTree = "<group>"; };
 		D53E0D122047C90000DC8759 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		D53E0D152047D39D00DC8759 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
+		D53E0D63204A769F00DC8759 /* CustomGridFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGridFlowLayout.swift; sourceTree = "<group>"; };
+		D53E0D65204A773F00DC8759 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		D53E0D67204A77CD00DC8759 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		D53E0D69204A792000DC8759 /* RepositoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesViewModel.swift; sourceTree = "<group>"; };
+		D53E0D6B204A7C1200DC8759 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		D53E0D6D204A7D1800DC8759 /* RepositoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		D53E0D6F204B45BF00DC8759 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		D53E0D71204B8AC200DC8759 /* UITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,8 +145,9 @@
 				D53E0D0C2047C82D00DC8759 /* Views */,
 				D53E0D0D2047C83600DC8759 /* ViewModels */,
 				D53E0D0A2047C82200DC8759 /* Models */,
-				D53E0D012047B96400DC8759 /* Global */,
 				D53E0CFE2047B6C200DC8759 /* API */,
+				D53E0D012047B96400DC8759 /* Global */,
+				D53E0D142047D30000DC8759 /* Extensions */,
 				D53E0CDB2047AAF400DC8759 /* AppDelegate.swift */,
 				D53E0CDF2047AAF400DC8759 /* Main.storyboard */,
 				D53E0CE52047AAF400DC8759 /* Assets.xcassets */,
@@ -162,6 +181,7 @@
 				D53E0D042047BC9F00DC8759 /* Reachability.swift */,
 				D53E0D062047BE8000DC8759 /* RefreshControl.swift */,
 				D53E0D082047BF3500DC8759 /* AnimatedTransitioningController.swift */,
+				D53E0D63204A769F00DC8759 /* CustomGridFlowLayout.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -169,6 +189,7 @@
 		D53E0D0A2047C82200DC8759 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D53E0D67204A77CD00DC8759 /* Repository.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -177,8 +198,10 @@
 			isa = PBXGroup;
 			children = (
 				D53E0D0E2047C87600DC8759 /* RepositoriesViewController.swift */,
+				D53E0D65204A773F00DC8759 /* FavoritesViewController.swift */,
 				D53E0D102047C88C00DC8759 /* PullRequestsViewController.swift */,
 				D53E0D122047C90000DC8759 /* WebViewController.swift */,
+				D53E0D6B204A7C1200DC8759 /* BaseViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -186,6 +209,7 @@
 		D53E0D0C2047C82D00DC8759 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D53E0D6D204A7D1800DC8759 /* RepositoryCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -193,8 +217,19 @@
 		D53E0D0D2047C83600DC8759 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				D53E0D69204A792000DC8759 /* RepositoriesViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D53E0D142047D30000DC8759 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D53E0D152047D39D00DC8759 /* UINavigationController.swift */,
+				D53E0D71204B8AC200DC8759 /* UITabBarController.swift */,
+				D53E0D6F204B45BF00DC8759 /* UIImage.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -414,13 +449,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				D53E0D092047BF3500DC8759 /* AnimatedTransitioningController.swift in Sources */,
+				D53E0D162047D39D00DC8759 /* UINavigationController.swift in Sources */,
 				D53E0D132047C90000DC8759 /* WebViewController.swift in Sources */,
+				D53E0D68204A77CD00DC8759 /* Repository.swift in Sources */,
+				D53E0D6E204A7D1800DC8759 /* RepositoryCollectionViewCell.swift in Sources */,
 				D53E0D032047B98E00DC8759 /* Constants.swift in Sources */,
+				D53E0D70204B45BF00DC8759 /* UIImage.swift in Sources */,
+				D53E0D6C204A7C1200DC8759 /* BaseViewController.swift in Sources */,
 				D53E0D072047BE8000DC8759 /* RefreshControl.swift in Sources */,
 				D53E0D0F2047C87600DC8759 /* RepositoriesViewController.swift in Sources */,
 				D53E0D052047BC9F00DC8759 /* Reachability.swift in Sources */,
 				D53E0CDC2047AAF400DC8759 /* AppDelegate.swift in Sources */,
 				D53E0D112047C88C00DC8759 /* PullRequestsViewController.swift in Sources */,
+				D53E0D72204B8AC200DC8759 /* UITabBarController.swift in Sources */,
+				D53E0D6A204A792000DC8759 /* RepositoriesViewModel.swift in Sources */,
+				D53E0D64204A769F00DC8759 /* CustomGridFlowLayout.swift in Sources */,
+				D53E0D66204A773F00DC8759 /* FavoritesViewController.swift in Sources */,
 				D53E0D002047B77400DC8759 /* HTTPNetworking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

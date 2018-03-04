@@ -15,4 +15,20 @@ struct Constants {
             return Bundle.main.object(forInfoDictionaryKey: "ApiUrl") as! String
         }
     }
+    
+    struct Identifier {
+        struct Cell {
+            static let repository = "RepositoryCell"
+            static let pullRequest = "PullRequestCell"
+        }
+    }
+    
+    struct Segue {
+        static let pullRequests = "goToPullRequests"
+    }
+    
+    struct Message {
+        static let genericError = "Could not retrieve information. Please try again later."
+        static let notConnected = "Not connected to internet!"
+    }
 }
