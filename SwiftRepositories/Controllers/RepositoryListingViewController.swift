@@ -24,6 +24,8 @@ class RepositoryListingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        titlelessBackButton()
+        
         configCollectionViewLayout()
         configSearch()
     }
@@ -123,7 +125,7 @@ extension RepositoryListingViewController: UICollectionViewDataSource {
             return cell
         }
         
-        assertionFailure("")
+        assertionFailure("identifier for Constants.Identifier.Cell.repository doesn't match with RepositoryCollectionViewCell class or nib not registered")
         return UICollectionViewCell()
     }
 }
@@ -171,7 +173,7 @@ extension RepositoryListingViewController: GridHeightLayoutDelegate {
             string = repositories![indexPath.item].description
         }
         
-        let attributedString = NSAttributedString(string: string ?? "", attributes: [.font : UIFont(name: "Avenir-LightOblique", size: 12)!])
+        let attributedString = NSAttributedString(string: string ?? "", attributes: [.font : UIFont(name: "Avenir-Light", size: 12)!])
         let boundingRect = attributedString.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
         
         var height = boundingRect.height

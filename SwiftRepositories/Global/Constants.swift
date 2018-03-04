@@ -30,7 +30,8 @@ struct Constants {
     }
     
     struct Segue {
-        static let pullRequests = "goToPullRequests"
+        static let pullRequests = "showPullRequests"
+        static let openInBrowser = "openInBrowser"
     }
     
     struct Message {

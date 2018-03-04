@@ -14,4 +14,10 @@ extension UIViewController {
     func preloadView() {
         _ = view
     }
+    
+    internal func titlelessBackButton() {
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backButton.tintColor = .black
+        navigationItem.backBarButtonItem = backButton
+    }
 }

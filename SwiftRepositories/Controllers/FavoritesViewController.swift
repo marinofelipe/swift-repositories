@@ -10,6 +10,8 @@ import UIKit
 
 class FavoritesViewController: RepositoryListingViewController {
     
+     var addingItem: Repository?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,6 +30,18 @@ class FavoritesViewController: RepositoryListingViewController {
             repository.owner?.imageUrl = ""
             
             repositories?.append(repository)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let nav = tabBarController?.viewControllers?.first as? UINavigationController,
+            let vc = nav.viewControllers.first as? RepositoriesViewController {
+            
+            addingItem = vc.draggingRepository
+            
+            //TODO: Collection insert row animating
         }
     }
 

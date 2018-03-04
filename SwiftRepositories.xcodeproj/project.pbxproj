@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		23EDCB6DA23977324B0EE0B8 /* Pods_SwiftRepositoriesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 686E9D724FE48536505670D6 /* Pods_SwiftRepositoriesTests.framework */; };
 		408E7F1250EBF6C8409D6898 /* Pods_SwiftRepositories.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260BFB5B4689751F7D318AB1 /* Pods_SwiftRepositories.framework */; };
+		D509C830204BDCC5008B521F /* PullRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D509C82F204BDCC5008B521F /* PullRequestTableViewCell.swift */; };
+		D509C832204BDE7A008B521F /* PullRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D509C831204BDE7A008B521F /* PullRequest.swift */; };
+		D509C834204BDEFA008B521F /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = D509C833204BDEFA008B521F /* Date.swift */; };
 		D53E0CDC2047AAF400DC8759 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0CDB2047AAF400DC8759 /* AppDelegate.swift */; };
 		D53E0CE12047AAF400DC8759 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D53E0CDF2047AAF400DC8759 /* Main.storyboard */; };
 		D53E0CE62047AAF400DC8759 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D53E0CE52047AAF400DC8759 /* Assets.xcassets */; };
@@ -50,6 +53,9 @@
 		686E9D724FE48536505670D6 /* Pods_SwiftRepositoriesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftRepositoriesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DABD23873B37EE539497750 /* Pods-SwiftRepositories.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftRepositories.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftRepositories/Pods-SwiftRepositories.debug.xcconfig"; sourceTree = "<group>"; };
 		8BF72373E8AFDD18BB1D4605 /* Pods-SwiftRepositoriesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftRepositoriesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftRepositoriesTests/Pods-SwiftRepositoriesTests.release.xcconfig"; sourceTree = "<group>"; };
+		D509C82F204BDCC5008B521F /* PullRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestTableViewCell.swift; sourceTree = "<group>"; };
+		D509C831204BDE7A008B521F /* PullRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequest.swift; sourceTree = "<group>"; };
+		D509C833204BDEFA008B521F /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		D53E0CD82047AAF400DC8759 /* SwiftRepositories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftRepositories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D53E0CDB2047AAF400DC8759 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D53E0CE02047AAF400DC8759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -190,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				D53E0D67204A77CD00DC8759 /* Repository.swift */,
+				D509C831204BDE7A008B521F /* PullRequest.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -210,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				D53E0D6D204A7D1800DC8759 /* RepositoryCollectionViewCell.swift */,
+				D509C82F204BDCC5008B521F /* PullRequestTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -228,6 +236,7 @@
 				D53E0D71204B8AC200DC8759 /* UITabBarController.swift */,
 				D53E0D73204B925A00DC8759 /* UIViewController.swift */,
 				D53E0D6F204B45BF00DC8759 /* UIImage.swift */,
+				D509C833204BDEFA008B521F /* Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -452,6 +461,7 @@
 				D53E0D132047C90000DC8759 /* WebViewController.swift in Sources */,
 				D53E0D74204B925A00DC8759 /* UIViewController.swift in Sources */,
 				D53E0D68204A77CD00DC8759 /* Repository.swift in Sources */,
+				D509C830204BDCC5008B521F /* PullRequestTableViewCell.swift in Sources */,
 				D53E0D6E204A7D1800DC8759 /* RepositoryCollectionViewCell.swift in Sources */,
 				D53E0D032047B98E00DC8759 /* Constants.swift in Sources */,
 				D53E0D70204B45BF00DC8759 /* UIImage.swift in Sources */,
@@ -463,8 +473,10 @@
 				D53E0D112047C88C00DC8759 /* PullRequestsViewController.swift in Sources */,
 				D53E0D72204B8AC200DC8759 /* UITabBarController.swift in Sources */,
 				D53E0D6A204A792000DC8759 /* RepositoriesViewModel.swift in Sources */,
+				D509C834204BDEFA008B521F /* Date.swift in Sources */,
 				D53E0D64204A769F00DC8759 /* CustomGridFlowLayout.swift in Sources */,
 				D53E0D66204A773F00DC8759 /* FavoritesViewController.swift in Sources */,
+				D509C832204BDE7A008B521F /* PullRequest.swift in Sources */,
 				D53E0D002047B77400DC8759 /* HTTPNetworking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
