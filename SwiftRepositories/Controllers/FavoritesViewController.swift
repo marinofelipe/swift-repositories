@@ -8,12 +8,27 @@
 
 import UIKit
 
-class FavoritesViewController: BaseViewController {
+class FavoritesViewController: RepositoryListingViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        self.activityIndicator.stopAnimating()
+        repositoriesViewModel.title = "Favorites"
+        
+        //repos mock
+        self.repositories = []
+        for index in 0...4 {
+            var repository = Repository()
+            repository.name = "Favorite Name \(index)"
+            repository.description = "Custom Description"
+            repository.forksCount = "10"
+            repository.starsCount = "3"
+            repository.owner?.name = "alamo"
+            repository.owner?.imageUrl = ""
+            
+            repositories?.append(repository)
+        }
     }
 
     override func didReceiveMemoryWarning() {

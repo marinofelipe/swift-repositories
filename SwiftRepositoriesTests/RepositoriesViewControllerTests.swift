@@ -35,7 +35,6 @@ class RepositoriesViewControllerTests: XCTestCase {
 //        XCTAssertEqual(underTestController.activityIndicator.isAnimating, true)
         XCTAssertNotNil(underTestController.collectionView)
         XCTAssertEqual(underTestController.title, "Swift Repositories")
-        XCTAssertNotNil(underTestController.searchBarButtonReplacableItem)
         XCTAssertNotNil(underTestController.searchBar)
     }
 

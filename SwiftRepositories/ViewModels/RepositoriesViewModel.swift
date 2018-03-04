@@ -11,6 +11,7 @@ import UIKit
 struct RepositoriesViewModel {
     
     var title: String? = "Swift Repositories"
+    var searchPlaceholder: String? = "search repositories.."
     var repositories: [RepositoryViewModel]?
 }
 

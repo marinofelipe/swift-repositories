@@ -22,12 +22,11 @@
 		D53E0D0F2047C87600DC8759 /* RepositoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D0E2047C87600DC8759 /* RepositoriesViewController.swift */; };
 		D53E0D112047C88C00DC8759 /* PullRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D102047C88C00DC8759 /* PullRequestsViewController.swift */; };
 		D53E0D132047C90000DC8759 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D122047C90000DC8759 /* WebViewController.swift */; };
-		D53E0D162047D39D00DC8759 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D152047D39D00DC8759 /* UINavigationController.swift */; };
 		D53E0D64204A769F00DC8759 /* CustomGridFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D63204A769F00DC8759 /* CustomGridFlowLayout.swift */; };
 		D53E0D66204A773F00DC8759 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D65204A773F00DC8759 /* FavoritesViewController.swift */; };
 		D53E0D68204A77CD00DC8759 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D67204A77CD00DC8759 /* Repository.swift */; };
 		D53E0D6A204A792000DC8759 /* RepositoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D69204A792000DC8759 /* RepositoriesViewModel.swift */; };
-		D53E0D6C204A7C1200DC8759 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D6B204A7C1200DC8759 /* BaseViewController.swift */; };
+		D53E0D6C204A7C1200DC8759 /* RepositoryListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D6B204A7C1200DC8759 /* RepositoryListingViewController.swift */; };
 		D53E0D6E204A7D1800DC8759 /* RepositoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D6D204A7D1800DC8759 /* RepositoryCollectionViewCell.swift */; };
 		D53E0D70204B45BF00DC8759 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D6F204B45BF00DC8759 /* UIImage.swift */; };
 		D53E0D72204B8AC200DC8759 /* UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D71204B8AC200DC8759 /* UITabBarController.swift */; };
@@ -68,12 +67,11 @@
 		D53E0D0E2047C87600DC8759 /* RepositoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesViewController.swift; sourceTree = "<group>"; };
 		D53E0D102047C88C00DC8759 /* PullRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsViewController.swift; sourceTree = "<group>"; };
 		D53E0D122047C90000DC8759 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		D53E0D152047D39D00DC8759 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		D53E0D63204A769F00DC8759 /* CustomGridFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGridFlowLayout.swift; sourceTree = "<group>"; };
 		D53E0D65204A773F00DC8759 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		D53E0D67204A77CD00DC8759 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		D53E0D69204A792000DC8759 /* RepositoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesViewModel.swift; sourceTree = "<group>"; };
-		D53E0D6B204A7C1200DC8759 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		D53E0D6B204A7C1200DC8759 /* RepositoryListingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListingViewController.swift; sourceTree = "<group>"; };
 		D53E0D6D204A7D1800DC8759 /* RepositoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		D53E0D6F204B45BF00DC8759 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		D53E0D71204B8AC200DC8759 /* UITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarController.swift; sourceTree = "<group>"; };
@@ -199,11 +197,11 @@
 		D53E0D0B2047C82800DC8759 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D53E0D6B204A7C1200DC8759 /* RepositoryListingViewController.swift */,
 				D53E0D0E2047C87600DC8759 /* RepositoriesViewController.swift */,
 				D53E0D65204A773F00DC8759 /* FavoritesViewController.swift */,
 				D53E0D102047C88C00DC8759 /* PullRequestsViewController.swift */,
 				D53E0D122047C90000DC8759 /* WebViewController.swift */,
-				D53E0D6B204A7C1200DC8759 /* BaseViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -227,7 +225,6 @@
 		D53E0D142047D30000DC8759 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D53E0D152047D39D00DC8759 /* UINavigationController.swift */,
 				D53E0D71204B8AC200DC8759 /* UITabBarController.swift */,
 				D53E0D73204B925A00DC8759 /* UIViewController.swift */,
 				D53E0D6F204B45BF00DC8759 /* UIImage.swift */,
@@ -452,14 +449,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D53E0D092047BF3500DC8759 /* AnimatedTransitioningController.swift in Sources */,
-				D53E0D162047D39D00DC8759 /* UINavigationController.swift in Sources */,
 				D53E0D132047C90000DC8759 /* WebViewController.swift in Sources */,
 				D53E0D74204B925A00DC8759 /* UIViewController.swift in Sources */,
 				D53E0D68204A77CD00DC8759 /* Repository.swift in Sources */,
 				D53E0D6E204A7D1800DC8759 /* RepositoryCollectionViewCell.swift in Sources */,
 				D53E0D032047B98E00DC8759 /* Constants.swift in Sources */,
 				D53E0D70204B45BF00DC8759 /* UIImage.swift in Sources */,
-				D53E0D6C204A7C1200DC8759 /* BaseViewController.swift in Sources */,
+				D53E0D6C204A7C1200DC8759 /* RepositoryListingViewController.swift in Sources */,
 				D53E0D072047BE8000DC8759 /* RefreshControl.swift in Sources */,
 				D53E0D0F2047C87600DC8759 /* RepositoriesViewController.swift in Sources */,
 				D53E0D052047BC9F00DC8759 /* Reachability.swift in Sources */,
