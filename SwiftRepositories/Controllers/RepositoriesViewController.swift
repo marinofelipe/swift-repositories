@@ -9,9 +9,19 @@
 import UIKit
 
 class RepositoriesViewController: BaseViewController {
-
+    
     var repositories: [Repository]?
+    var filteredRepositories: [Repository]?
     var repositoriesViewModel = RepositoriesViewModel()
+    
+    @IBOutlet weak var searchBarButtonItem: UIBarButtonItem!
+    var searchBarButtonReplacableItem: UIBarButtonItem?
+    var searchController: UISearchController?
+    var searchBar: UISearchBar?
+    
+    var cellSnapshotImageView: UIImageView?
+    var draggingCell: UICollectionViewCell?
+    var draggingRepository: Repository?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +43,14 @@ class RepositoriesViewController: BaseViewController {
             
             repositories?.append(repository)
         }
+        
+        //search
+        searchBarButtonReplacableItem = searchBarButtonItem
+        
+        self.searchBar = UISearchBar()
+        searchBar?.keyboardType = UIKeyboardType.asciiCapable
+        searchBar?.delegate = self
+        searchBar?.showsCancelButton = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -50,6 +68,19 @@ class RepositoriesViewController: BaseViewController {
      // Pass the selected object to the new view controller.
      }
      */
+    
+    // MARK: Actions
+    @IBAction func searchAction(sender: UIBarButtonItem) {
+        self.navigationItem.rightBarButtonItem = nil
+        self.navigationItem.titleView = self.searchBar!
+        self.searchBar?.alpha = 0.0
+        
+        UIView.animate(withDuration: 0.36, animations: {
+            self.searchBar?.alpha = 1.0
+        }, completion: { isFinished in
+            self.searchBar?.becomeFirstResponder()
+        })
+    }
 }
 
 // MARK: UICollectionViewDelegate
@@ -68,6 +99,9 @@ extension RepositoriesViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let filteredRepositories = filteredRepositories {
+            return filteredRepositories.count
+        }
         return repositories?.count ?? 0
     }
     
@@ -75,16 +109,22 @@ extension RepositoriesViewController: UICollectionViewDataSource {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifier.Cell.repository, for: indexPath) as? RepositoryCollectionViewCell {
             
-            var repository = repositories![indexPath.item]
+            var repository: Repository?
+            if let filteredRepositories = filteredRepositories {
+                repository = filteredRepositories[indexPath.item]
+            } else {
+                repository = repositories![indexPath.item]
+            }
+            
             
             cell.imageView.image = #imageLiteral(resourceName: "star")
-            cell.nameLabel.text = repository.name
-            cell.descriptionLabel.text = repository.description
-            cell.forksCountLabel.text = repository.forksCount
-            cell.starsCountLabel.text = repository.starsCount
-            cell.ownerNameLabel.text = repository.owner?.name
-
-//            cell.backgroundColor = UIColor.blue
+            cell.nameLabel.text = repository?.name
+            cell.descriptionLabel.text = repository?.description
+            cell.forksCountLabel.text = repository?.forksCount
+            cell.starsCountLabel.text = repository?.starsCount
+            cell.ownerNameLabel.text = repository?.owner?.name
+            
+            //            cell.backgroundColor = UIColor.blue
             
             return cell
         }
@@ -94,10 +134,58 @@ extension RepositoriesViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: UISearchBarDelegate
+extension RepositoriesViewController: UISearchBarDelegate {
+    
+    // MARK: Search Bar Text editing
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard searchText != "" else {
+            filteredRepositories = nil
+            collectionView.reloadData()
+            return
+        }
+        filteredRepositories = repositories?.filter({ $0.name?.range(of: searchText) != nil })
+        collectionView.reloadData()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        filteredRepositories = nil
+        collectionView.reloadData()
+    }
+    
+    // MARK: Search Bar Actions
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        filteredRepositories = nil
+        UIView.animate(withDuration: 0.36, animations: {
+            self.searchBar?.alpha = 0.0
+        }, completion: { isFinished in
+            self.searchBar?.resignFirstResponder()
+            self.navigationItem.rightBarButtonItem = self.searchBarButtonReplacableItem
+            
+            UIView.animate(withDuration: 0.36, animations: {
+                self.navigationItem.titleView = nil
+                self.title = self.repositoriesViewModel.title
+            }, completion: { isFinished in
+                self.searchBar?.resignFirstResponder()
+                self.collectionView.reloadData()
+            })
+        })
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar?.resignFirstResponder()
+    }
+}
+
 extension RepositoriesViewController: GridHeightLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForCellAt indexPath: IndexPath, withWidth width: CGFloat) -> CGFloat {
         
-        var string = repositories![indexPath.item].description
+        var string: String? = ""
+        if let filteredRepositories = filteredRepositories {
+            string = filteredRepositories[indexPath.item].description
+        } else {
+            string = repositories![indexPath.item].description
+        }
         
         let attributedString = NSAttributedString(string: string ?? "", attributes: [.font : UIFont(name: "Avenir-LightOblique", size: 12)!])
         let boundingRect = attributedString.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
