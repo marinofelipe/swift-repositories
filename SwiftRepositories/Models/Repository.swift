@@ -8,12 +8,22 @@
 
 struct Repository {
     
-    var id: Int? = 0
-    var name: String? = "Repositório"
-    var description: String? = "lorem ipsum description"
+    var id: Int?
+    var name: String?
+    var description: String?
     var owner: Owner?
-    var starsCount: String? = "10"
-    var forksCount: String? = "3"
+    var starsCount: String?
+    var forksCount: String?
+    
+    init(id: Int? = nil, name: String? = nil, description: String? = nil, owner: Owner? = nil, starsCount: String? = nil, forksCount: String? = nil) {
+        
+        self.id = id
+        self.name = name
+        self.description = description
+        self.owner = owner
+        self.starsCount = starsCount
+        self.forksCount = forksCount
+    }
 }
 
 struct Owner {

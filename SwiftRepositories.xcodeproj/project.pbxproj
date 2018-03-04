@@ -13,7 +13,7 @@
 		D53E0CE12047AAF400DC8759 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D53E0CDF2047AAF400DC8759 /* Main.storyboard */; };
 		D53E0CE62047AAF400DC8759 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D53E0CE52047AAF400DC8759 /* Assets.xcassets */; };
 		D53E0CE92047AAF400DC8759 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D53E0CE72047AAF400DC8759 /* LaunchScreen.storyboard */; };
-		D53E0CF42047AAF600DC8759 /* SwiftRepositoriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0CF32047AAF600DC8759 /* SwiftRepositoriesTests.swift */; };
+		D53E0CF42047AAF600DC8759 /* RepositoriesViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0CF32047AAF600DC8759 /* RepositoriesViewControllerTests.swift */; };
 		D53E0D002047B77400DC8759 /* HTTPNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0CFF2047B77400DC8759 /* HTTPNetworking.swift */; };
 		D53E0D032047B98E00DC8759 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D022047B98E00DC8759 /* Constants.swift */; };
 		D53E0D052047BC9F00DC8759 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D042047BC9F00DC8759 /* Reachability.swift */; };
@@ -31,6 +31,7 @@
 		D53E0D6E204A7D1800DC8759 /* RepositoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D6D204A7D1800DC8759 /* RepositoryCollectionViewCell.swift */; };
 		D53E0D70204B45BF00DC8759 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D6F204B45BF00DC8759 /* UIImage.swift */; };
 		D53E0D72204B8AC200DC8759 /* UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D71204B8AC200DC8759 /* UITabBarController.swift */; };
+		D53E0D74204B925A00DC8759 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D73204B925A00DC8759 /* UIViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +58,7 @@
 		D53E0CE82047AAF400DC8759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D53E0CEA2047AAF400DC8759 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D53E0CEF2047AAF500DC8759 /* SwiftRepositoriesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftRepositoriesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D53E0CF32047AAF600DC8759 /* SwiftRepositoriesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftRepositoriesTests.swift; sourceTree = "<group>"; };
+		D53E0CF32047AAF600DC8759 /* RepositoriesViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesViewControllerTests.swift; sourceTree = "<group>"; };
 		D53E0CF52047AAF600DC8759 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D53E0CFF2047B77400DC8759 /* HTTPNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPNetworking.swift; sourceTree = "<group>"; };
 		D53E0D022047B98E00DC8759 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -76,6 +77,7 @@
 		D53E0D6D204A7D1800DC8759 /* RepositoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		D53E0D6F204B45BF00DC8759 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		D53E0D71204B8AC200DC8759 /* UITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarController.swift; sourceTree = "<group>"; };
+		D53E0D73204B925A00DC8759 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,7 +162,7 @@
 		D53E0CF22047AAF600DC8759 /* SwiftRepositoriesTests */ = {
 			isa = PBXGroup;
 			children = (
-				D53E0CF32047AAF600DC8759 /* SwiftRepositoriesTests.swift */,
+				D53E0CF32047AAF600DC8759 /* RepositoriesViewControllerTests.swift */,
 				D53E0CF52047AAF600DC8759 /* Info.plist */,
 			);
 			path = SwiftRepositoriesTests;
@@ -227,6 +229,7 @@
 			children = (
 				D53E0D152047D39D00DC8759 /* UINavigationController.swift */,
 				D53E0D71204B8AC200DC8759 /* UITabBarController.swift */,
+				D53E0D73204B925A00DC8759 /* UIViewController.swift */,
 				D53E0D6F204B45BF00DC8759 /* UIImage.swift */,
 			);
 			path = Extensions;
@@ -451,6 +454,7 @@
 				D53E0D092047BF3500DC8759 /* AnimatedTransitioningController.swift in Sources */,
 				D53E0D162047D39D00DC8759 /* UINavigationController.swift in Sources */,
 				D53E0D132047C90000DC8759 /* WebViewController.swift in Sources */,
+				D53E0D74204B925A00DC8759 /* UIViewController.swift in Sources */,
 				D53E0D68204A77CD00DC8759 /* Repository.swift in Sources */,
 				D53E0D6E204A7D1800DC8759 /* RepositoryCollectionViewCell.swift in Sources */,
 				D53E0D032047B98E00DC8759 /* Constants.swift in Sources */,
@@ -473,7 +477,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D53E0CF42047AAF600DC8759 /* SwiftRepositoriesTests.swift in Sources */,
+				D53E0CF42047AAF600DC8759 /* RepositoriesViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

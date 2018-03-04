@@ -14,6 +14,9 @@ class RepositoriesViewController: BaseViewController {
     var filteredRepositories: [Repository]?
     var repositoriesViewModel = RepositoriesViewModel()
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var emptyListLabel: UILabel!
+    
     @IBOutlet weak var searchBarButtonItem: UIBarButtonItem!
     var searchBarButtonReplacableItem: UIBarButtonItem?
     var searchController: UISearchController?
@@ -29,6 +32,8 @@ class RepositoriesViewController: BaseViewController {
         if let layout = collectionView.collectionViewLayout as? CustomGridFlowLayout {
             layout.delegate = self
         }
+        
+        activityIndicator.stopAnimating()
         
         //repos mock
         repositories = []

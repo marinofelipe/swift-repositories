@@ -21,6 +21,12 @@ struct Constants {
             static let repository = "RepositoryCell"
             static let pullRequest = "PullRequestCell"
         }
+        
+        struct Storyboard {
+            static let repositories = "RepositoriesViewController"
+            static let favorites = "FavoritesViewController"
+            static let pullRequests = "PullRequestsViewController"
+        }
     }
     
     struct Segue {
