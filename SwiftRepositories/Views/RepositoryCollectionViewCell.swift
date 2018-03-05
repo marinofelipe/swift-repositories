@@ -14,7 +14,6 @@ class RepositoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var ownerUsernameLabel: UILabel!
-    @IBOutlet weak var ownerNameLabel: UILabel!
     @IBOutlet weak var forksCountLabel: UILabel!
     @IBOutlet weak var starsCountLabel: UILabel!
     

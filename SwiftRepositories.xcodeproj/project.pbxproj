@@ -12,6 +12,8 @@
 		D509C830204BDCC5008B521F /* PullRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D509C82F204BDCC5008B521F /* PullRequestTableViewCell.swift */; };
 		D509C832204BDE7A008B521F /* PullRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D509C831204BDE7A008B521F /* PullRequest.swift */; };
 		D509C834204BDEFA008B521F /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = D509C833204BDEFA008B521F /* Date.swift */; };
+		D509C836204C8F3E008B521F /* RepositoriesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D509C835204C8F3E008B521F /* RepositoriesHandler.swift */; };
+		D509C838204CAFD0008B521F /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D509C837204CAFD0008B521F /* UIImageView.swift */; };
 		D53E0CDC2047AAF400DC8759 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0CDB2047AAF400DC8759 /* AppDelegate.swift */; };
 		D53E0CE12047AAF400DC8759 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D53E0CDF2047AAF400DC8759 /* Main.storyboard */; };
 		D53E0CE62047AAF400DC8759 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D53E0CE52047AAF400DC8759 /* Assets.xcassets */; };
@@ -56,6 +58,8 @@
 		D509C82F204BDCC5008B521F /* PullRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestTableViewCell.swift; sourceTree = "<group>"; };
 		D509C831204BDE7A008B521F /* PullRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequest.swift; sourceTree = "<group>"; };
 		D509C833204BDEFA008B521F /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		D509C835204C8F3E008B521F /* RepositoriesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesHandler.swift; sourceTree = "<group>"; };
+		D509C837204CAFD0008B521F /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		D53E0CD82047AAF400DC8759 /* SwiftRepositories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftRepositories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D53E0CDB2047AAF400DC8759 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D53E0CE02047AAF400DC8759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				D53E0CFF2047B77400DC8759 /* HTTPNetworking.swift */,
+				D509C835204C8F3E008B521F /* RepositoriesHandler.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -236,6 +241,7 @@
 				D53E0D71204B8AC200DC8759 /* UITabBarController.swift */,
 				D53E0D73204B925A00DC8759 /* UIViewController.swift */,
 				D53E0D6F204B45BF00DC8759 /* UIImage.swift */,
+				D509C837204CAFD0008B521F /* UIImageView.swift */,
 				D509C833204BDEFA008B521F /* Date.swift */,
 			);
 			path = Extensions;
@@ -471,10 +477,12 @@
 				D53E0D052047BC9F00DC8759 /* Reachability.swift in Sources */,
 				D53E0CDC2047AAF400DC8759 /* AppDelegate.swift in Sources */,
 				D53E0D112047C88C00DC8759 /* PullRequestsViewController.swift in Sources */,
+				D509C836204C8F3E008B521F /* RepositoriesHandler.swift in Sources */,
 				D53E0D72204B8AC200DC8759 /* UITabBarController.swift in Sources */,
 				D53E0D6A204A792000DC8759 /* RepositoriesViewModel.swift in Sources */,
 				D509C834204BDEFA008B521F /* Date.swift in Sources */,
 				D53E0D64204A769F00DC8759 /* CustomGridFlowLayout.swift in Sources */,
+				D509C838204CAFD0008B521F /* UIImageView.swift in Sources */,
 				D53E0D66204A773F00DC8759 /* FavoritesViewController.swift in Sources */,
 				D509C832204BDE7A008B521F /* PullRequest.swift in Sources */,
 				D53E0D002047B77400DC8759 /* HTTPNetworking.swift in Sources */,
@@ -669,6 +677,7 @@
 			baseConfigurationReference = 1DF2E9113EFB7F602A533CFB /* Pods-SwiftRepositoriesTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				API_URL = "https://api.github.com";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X9MK4PBNUW;
@@ -687,6 +696,7 @@
 			baseConfigurationReference = 8BF72373E8AFDD18BB1D4605 /* Pods-SwiftRepositoriesTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				API_URL = "https://api.github.com";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X9MK4PBNUW;

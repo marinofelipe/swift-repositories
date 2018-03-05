@@ -11,10 +11,19 @@ import UIKit
 class RepositoryListingViewController: UIViewController {
     
     //repositories
-    var repositoriesViewModel = RepositoriesViewModel()
-    var repositories: [Repository]?
-    var filteredRepositories: [Repository]?
+    var viewModel = RepositoryListingViewModel()
+    var repositories: [Repository]? {
+        didSet {
+            // TODO: Save Repositories for offline access
+            
+            self.viewModel.repositories = repositories?.map({ return RepositoryViewModel(repository: $0) })
+            collectionView.reloadData()
+        }
+    }
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    var searchingFilter: String?
+    fileprivate var repositoriesPaging = RepositoriesPaging()
     
     //custom views
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -25,9 +34,9 @@ class RepositoryListingViewController: UIViewController {
         super.viewDidLoad()
         
         titlelessBackButton()
-        
         configCollectionViewLayout()
         configSearch()
+        fetchRepositories()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,7 +72,7 @@ class RepositoryListingViewController: UIViewController {
             let searchController = UISearchController(searchResultsController: nil)
             navigationItem.searchController = searchController
             
-            searchController.searchBar.placeholder = repositoriesViewModel.searchPlaceholder
+            searchController.searchBar.placeholder = viewModel.searchPlaceholder
             searchController.searchBar.keyboardType = UIKeyboardType.asciiCapable
             searchController.searchBar.delegate = self
             self.definesPresentationContext = true
@@ -76,15 +85,51 @@ class RepositoryListingViewController: UIViewController {
         }
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    // MARK: Data
+    private func fetchRepositories(completion: (() -> Void)? = nil) {
+        RepositoriesHandler.get(atPage: repositoriesPaging.currentPage) { response in
+            if response?.statusCode == .success {
+                self.activityIndicator.stopAnimating()
+                self.emptyListLabel.isHidden = true
+                
+                if let total = response?.total, self.repositoriesPaging.totalItems != total {
+                    self.repositoriesPaging.totalItems = total
+                }
+                
+                guard response?.repositories != nil else { return }
+                
+                guard self.viewModel.repositories != nil else {
+                    self.repositories = response?.repositories
+                    completion?()
+                    return
+                }
+                guard self.repositoriesPaging.currentPage != 1 else { return }
+                response?.repositories?.forEach({ self.viewModel.repositories?.append(RepositoryViewModel(repository: $0)) })
+            } else if self.viewModel.repositories == nil {
+                self.emptyListLabel.isHidden = false
+                
+                // TODO: add error snackbar
+            }
+            completion?()
+        }
+    }
+}
+
+// MARK: UICollectionViewDelegate
+extension RepositoryListingViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        let referenceItemToNextFetch = (repositoriesPaging.itemsPerPage * repositoriesPaging.currentPage) - 2 //breath
+        if indexPath.row >= referenceItemToNextFetch && repositoriesPaging.currentPage < repositoriesPaging.numberOfPages {
+            
+            guard Reachability.shared.isConnected() else {
+                // TODO: not connected snackbar
+                return
+            }
+            repositoriesPaging.currentPage += 1
+            fetchRepositories()
+        }
+    }
 }
 
 // MARK: UICollectionViewDataSource
@@ -95,32 +140,31 @@ extension RepositoryListingViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let filteredRepositories = filteredRepositories {
-            return filteredRepositories.count
+        if let filter = searchingFilter {
+            return viewModel.repositories?.filter({ $0.name?.range(of: filter) != nil }).count ?? 0
         }
-        return repositories?.count ?? 0
+        return viewModel.repositories?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifier.Cell.repository, for: indexPath) as? RepositoryCollectionViewCell {
             
-            var repository: Repository?
-            if let filteredRepositories = filteredRepositories {
-                repository = filteredRepositories[indexPath.item]
+            var repository: RepositoryViewModel?
+            if let filter = searchingFilter {
+                repository = viewModel.repositories!.filter({ $0.name?.range(of: filter) != nil })[indexPath.item]
             } else {
-                repository = repositories![indexPath.item]
+                repository = viewModel.repositories![indexPath.item]
             }
             
-            
-            cell.imageView.image = #imageLiteral(resourceName: "star")
+            if let ownerImageUrl = repository?.ownerImageUrl {
+                cell.imageView.load(stringUrl: ownerImageUrl)
+            }
             cell.nameLabel.text = repository?.name
             cell.descriptionLabel.text = repository?.description
             cell.forksCountLabel.text = repository?.forksCount
             cell.starsCountLabel.text = repository?.starsCount
-            cell.ownerNameLabel.text = repository?.owner?.name
-            
-            //            cell.backgroundColor = UIColor.blue
+            cell.ownerUsernameLabel.text = repository?.ownerUsername
             
             return cell
         }
@@ -136,17 +180,17 @@ extension RepositoryListingViewController: UISearchBarDelegate {
     // MARK: Search Bar Text editing
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard searchText != "" else {
-            filteredRepositories = nil
+            searchingFilter = nil
             collectionView.reloadData()
             return
         }
-        filteredRepositories = repositories?.filter({ $0.name?.range(of: searchText) != nil })
+        searchingFilter = searchText
         collectionView.reloadData()
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         if searchBar.text == "" {
-            filteredRepositories = nil
+            searchingFilter = nil
         }
         collectionView.reloadData()
     }
@@ -158,7 +202,7 @@ extension RepositoryListingViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        filteredRepositories = nil
+        searchingFilter = nil
         collectionView.reloadData()
     }
 }
@@ -167,10 +211,10 @@ extension RepositoryListingViewController: GridHeightLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForCellAt indexPath: IndexPath, withWidth width: CGFloat) -> CGFloat {
         
         var string: String? = ""
-        if let filteredRepositories = filteredRepositories {
-            string = filteredRepositories[indexPath.item].description
+        if let filter = searchingFilter {
+            string = viewModel.repositories?.filter({ $0.name?.range(of: filter) != nil })[indexPath.item].description
         } else {
-            string = repositories![indexPath.item].description
+            string = viewModel.repositories![indexPath.item].description
         }
         
         let attributedString = NSAttributedString(string: string ?? "", attributes: [.font : UIFont(name: "Avenir-Light", size: 12)!])

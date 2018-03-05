@@ -16,5 +16,7 @@ extension UITabBarController {
         if let firstBar = self.tabBar.items?.first {
             firstBar.image = #imageLiteral(resourceName: "fork").resizing(withNewHeight: 30.0)
         }
+        
+        tabBar.tintColor = .black
     }
 }

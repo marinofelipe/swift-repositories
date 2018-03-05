@@ -17,42 +17,17 @@ class RepositoriesViewController: RepositoryListingViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        self.activityIndicator.stopAnimating()
-        repositoriesViewModel.title = "Swift Repositories"
-        
-        //repos mock
-        self.repositories = []
-        for index in 0...22 {
-            var repository = Repository()
-            repository.name = "Nome \(index)"
-            repository.description = "Decsription"
-            repository.forksCount = "10"
-            repository.starsCount = "3"
-            repository.owner?.name = "alamo"
-            repository.owner?.imageUrl = ""
-            
-            repositories?.append(repository)
-        }
+        activityIndicator.stopAnimating()
+        viewModel.title = "Swift Repositories"
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(RepositoriesViewController.handleLongPress))
-        self.view.addGestureRecognizer(longPress)
+        view.addGestureRecognizer(longPress)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
     // MARK: Long Press
     @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
@@ -64,10 +39,10 @@ class RepositoriesViewController: RepositoryListingViewController {
                 let cell = collectionView.cellForItem(at: indexPath) as? RepositoryCollectionViewCell {
                 
                 draggingCell = cell
-                if let filteredRepositories = filteredRepositories {
-                    draggingRepository = filteredRepositories[indexPath.item]
+                if let filter = searchingFilter {
+//                    draggingRepository = viewModel.repositories!.filter({ $0.name?.range(of: filter) != nil })[indexPath.item]
                 } else {
-                    draggingRepository = repositories![indexPath.item]
+//                    draggingRepository = viewModel.repositories![indexPath.item]
                 }
                 
                 let cellSnapshot = UIImage.image(ofView: cell)
