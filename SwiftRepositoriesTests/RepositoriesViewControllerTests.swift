@@ -32,15 +32,16 @@ class RepositoriesViewControllerTests: XCTestCase {
     // MARK: After loading states
     func testIfViewsAreCorrectlyConfigured() {
         XCTAssertEqual(underTestController.emptyListLabel.isHidden, true)
-//        XCTAssertEqual(underTestController.activityIndicator.isAnimating, true)
         XCTAssertNotNil(underTestController.collectionView)
         XCTAssertEqual(underTestController.title, "Swift Repositories")
         XCTAssertNotNil(underTestController.searchBar)
     }
 
     func testCollectionAfterLoading() {
-        XCTAssertEqual(underTestController.collectionView.numberOfItems(inSection: 0), underTestController.repositories?.count)
+        XCTAssertEqual(underTestController.collectionView.numberOfItems(inSection: 0), 0)
     }
+    
+    // TODO: test after fetching
     
     // MARK: Search
     func testSearchingWithInvalidRepositoryName() {
@@ -56,7 +57,10 @@ class RepositoriesViewControllerTests: XCTestCase {
     }
     
     func testSearchWithCommonPrefix() {
-        underTestController.repositories = [Repository(name: "Test 1"), Repository(name: "Test 2"), Repository(name: "Test 3"), Repository(name: "4")]
+        let repositories = [Repository(name: "Test 1"), Repository(name: "Test 2"), Repository(name: "Test 3"), Repository(name: "4")]
+        underTestController.viewModel.repositories = repositories.map({ return RepositoryViewModel(repository: $0) })
+        underTestController.repositories = repositories
+        
         underTestController.searchBar(UISearchBar(), textDidChange: "Test")
         XCTAssertEqual(underTestController.collectionView.numberOfItems(inSection: 0), 3)
     }

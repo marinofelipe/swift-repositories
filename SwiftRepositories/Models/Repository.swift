@@ -45,6 +45,11 @@ struct Repository: Decodable {
         self.starsCount = try container.decodeIfPresent(Int.self, forKey: .starsCount)
         self.forksCount = try container.decodeIfPresent(Int.self, forKey: .forksCount)
     }
+    
+    // convenience init for testing
+    init(name: String) {
+        self.name = name
+    }
 }
 
 struct Owner: Decodable {
