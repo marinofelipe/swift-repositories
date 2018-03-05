@@ -18,12 +18,10 @@ class CustomGridFlowLayout: UICollectionViewFlowLayout {
     
     var orientationColumnMultiplier: Int {
         get {
-            switch UIDevice.current.orientation {
-            case .portrait:
-                return 1
-            default:
+            if UIApplication.shared.statusBarOrientation.isLandscape {
                 return 2
             }
+            return 1
         }
     }
     var numberOfColumns: Int {

@@ -10,7 +10,7 @@ import UIKit
 
 class FavoritesViewController: RepositoryListingViewController {
     
-     var addingItem: Repository?
+     var addingItem: RepositoryViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,10 @@ class FavoritesViewController: RepositoryListingViewController {
             
             addingItem = vc.draggingRepository
             
-            //TODO: Collection insert row animating
+            
+            //TODO:
+            //update item as favorite in core data
+            //Collection insert row animating
         }
     }
 

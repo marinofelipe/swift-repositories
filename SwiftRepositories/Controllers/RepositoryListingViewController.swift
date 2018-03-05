@@ -108,14 +108,7 @@ extension RepositoryListingViewController: UICollectionViewDataSource {
                 repository = viewModel.repositories![indexPath.item]
             }
             
-            if let ownerImageUrl = repository?.ownerImageUrl {
-                cell.imageView.load(stringUrl: ownerImageUrl)
-            }
-            cell.nameLabel.text = repository?.name
-            cell.descriptionLabel.text = repository?.description
-            cell.forksCountLabel.text = repository?.forksCount
-            cell.starsCountLabel.text = repository?.starsCount
-            cell.ownerUsernameLabel.text = repository?.ownerUsername
+            cell.setup(with: repository)
             
             return cell
         }
@@ -150,6 +143,7 @@ extension RepositoryListingViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         collectionView.reloadData()
         searchBar.resignFirstResponder()
+        self.collectionView.becomeFirstResponder()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

@@ -24,17 +24,20 @@ extension RepositoryListingViewModel {
 
 struct RepositoryViewModel {
     
+    var id: Int?
     var name: String?
     var description: String?
     var ownerUsername: String?
     var ownerImageUrl: String?
     var starsCount: String?
     var forksCount: String?
+    var isFavorite: Bool = false
 }
 
 extension RepositoryViewModel {
     
     init(repository: Repository) {
+        self.id = repository.id
         self.name = repository.name
         self.description = repository.description
         self.ownerUsername = repository.owner?.username

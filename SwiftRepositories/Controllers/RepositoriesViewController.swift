@@ -7,18 +7,21 @@
 //
 
 import UIKit
+import SwiftMessages
 
 class RepositoriesViewController: RepositoryListingViewController {
     
     var cellSnapshotImageView: UIImageView?
     var draggingCell: UICollectionViewCell?
-    var draggingRepository: Repository?
+    var draggingRepository: RepositoryViewModel?
     fileprivate var repositoriesPaging = RepositoriesPaging()
+    fileprivate var refreshControl: RefreshControl?
     
     override func viewDidLoad() {
         super.viewDidLoad()
                 
         activityIndicator.stopAnimating()
+        setupRefreshControl()
         viewModel.title = "Swift Repositories"
         
         fetchRepositories()
@@ -30,6 +33,17 @@ class RepositoriesViewController: RepositoryListingViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Refresh Control
+    private func setupRefreshControl() {
+        refreshControl = RefreshControl()
+        refreshControl?.delegate = self
+        if #available(iOS 10.0, *) {
+            collectionView.refreshControl = refreshControl
+        } else {
+            collectionView.addSubview(refreshControl!)
+        }
     }
     
     // MARK: Data
@@ -46,6 +60,11 @@ class RepositoriesViewController: RepositoryListingViewController {
                         }
                         
                         guard response?.repositories != nil else { return }
+                        
+                        if completion != nil {
+                            self.repositories = nil
+                            self.viewModel.repositories = nil
+                        }
                         guard self.viewModel.repositories != nil else {
                             self.viewModel.repositories = response?.repositories?.map({ return RepositoryViewModel(repository: $0) })
                             self.repositories = response?.repositories
@@ -60,14 +79,20 @@ class RepositoriesViewController: RepositoryListingViewController {
                             self.repositories?.append(contentsOf: repositories)
                         }
                     } else {
-                        self.repositoriesPaging.currentPage -= 1
+                        self.repositoriesPaging.currentPage > 1 ? self.repositoriesPaging.currentPage -= 1 : ()
                         if self.viewModel.repositories == nil {
                             self.emptyListLabel.isHidden = false
                         }
                         
-                        self.showSnackBar(with: response?.message ?? Constants.Message.repositoriesError)
+                        var theme: Theme = .error
+                        if response?.statusCode == .offline {
+                            theme = .warning
+                        }
+                        completion?()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.46, execute: {
+                            self.showSnackBar(with: response?.message ?? Constants.Message.repositoriesError, theme: theme)
+                        })
                     }
-                    completion?()
                 }
             }
         }
@@ -84,9 +109,9 @@ class RepositoriesViewController: RepositoryListingViewController {
                 
                 draggingCell = cell
                 if let filter = searchingFilter {
-//                    draggingRepository = viewModel.repositories!.filter({ $0.name?.range(of: filter) != nil })[indexPath.item]
+                    draggingRepository = viewModel.repositories!.filter({ $0.name?.range(of: filter) != nil })[indexPath.item]
                 } else {
-//                    draggingRepository = viewModel.repositories![indexPath.item]
+                    draggingRepository = viewModel.repositories![indexPath.item]
                 }
                 
                 let cellSnapshot = UIImage.image(ofView: cell)
@@ -101,7 +126,7 @@ class RepositoriesViewController: RepositoryListingViewController {
                     self.cellSnapshotImageView?.center = viewTouchedPoint
                     self.cellSnapshotImageView?.transform = CGAffineTransform(scaleX: 1.02, y: 1.02)
                     self.cellSnapshotImageView?.alpha = 0.95
-                    self.draggingCell?.alpha = 0.80
+                    self.draggingCell?.alpha = 0.60
                 })
             }
         } else if gesture.state == .changed {
@@ -143,6 +168,17 @@ extension RepositoriesViewController: UICollectionViewDelegate {
             }
             repositoriesPaging.currentPage += 1
             fetchRepositories()
+        }
+    }
+}
+
+// MARK: RefreshControlDelegate
+extension RepositoriesViewController: RefreshControlDelegate {
+    func willRefresh() {
+        searchingFilter = nil
+        repositoriesPaging.currentPage = 1
+        fetchRepositories {
+            self.refreshControl?.endRefreshing()
         }
     }
 }
