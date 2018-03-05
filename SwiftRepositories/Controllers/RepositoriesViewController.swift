@@ -13,12 +13,15 @@ class RepositoriesViewController: RepositoryListingViewController {
     var cellSnapshotImageView: UIImageView?
     var draggingCell: UICollectionViewCell?
     var draggingRepository: Repository?
+    fileprivate var repositoriesPaging = RepositoriesPaging()
     
     override func viewDidLoad() {
         super.viewDidLoad()
                 
         activityIndicator.stopAnimating()
         viewModel.title = "Swift Repositories"
+        
+        fetchRepositories()
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(RepositoriesViewController.handleLongPress))
         view.addGestureRecognizer(longPress)
@@ -27,6 +30,47 @@ class RepositoriesViewController: RepositoryListingViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Data
+    private func fetchRepositories(completion: (() -> Void)? = nil) {
+        DispatchQueue.global(qos: .userInteractive).async {
+            RepositoriesHandler.get(atPage: self.repositoriesPaging.currentPage) { response in
+                DispatchQueue.main.async {
+                    if response?.statusCode == .success {
+                        self.activityIndicator.stopAnimating()
+                        self.emptyListLabel.isHidden = true
+                        
+                        if let total = response?.total, self.repositoriesPaging.totalItems != total {
+                            self.repositoriesPaging.totalItems = total
+                        }
+                        
+                        guard response?.repositories != nil else { return }
+                        guard self.viewModel.repositories != nil else {
+                            self.viewModel.repositories = response?.repositories?.map({ return RepositoryViewModel(repository: $0) })
+                            self.repositories = response?.repositories
+                            completion?()
+                            return
+                        }
+                        
+                        guard self.repositoriesPaging.currentPage != 1 else { return }
+                        
+                        if let repositories = response?.repositories {
+                            self.viewModel.repositories?.append(contentsOf: repositories.map({ return RepositoryViewModel(repository: $0) }))
+                            self.repositories?.append(contentsOf: repositories)
+                        }
+                    } else {
+                        self.repositoriesPaging.currentPage -= 1
+                        if self.viewModel.repositories == nil {
+                            self.emptyListLabel.isHidden = false
+                        }
+                        
+                        self.showSnackBar(with: response?.message ?? Constants.Message.repositoriesError)
+                    }
+                    completion?()
+                }
+            }
+        }
     }
     
     // MARK: Long Press
@@ -82,6 +126,23 @@ class RepositoriesViewController: RepositoryListingViewController {
                 self.draggingCell = nil
                 self.draggingRepository = nil
             })
+        }
+    }
+}
+
+// MARK: UICollectionViewDelegate
+extension RepositoriesViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        let referenceItemToNextFetch = (repositoriesPaging.itemsPerPage * repositoriesPaging.currentPage) - 2 //breath
+        if indexPath.row >= referenceItemToNextFetch && repositoriesPaging.currentPage < repositoriesPaging.numberOfPages {
+            
+            guard Reachability.shared.isConnected() else {
+                showSnackBar(with: Constants.Message.notConnected, theme: .warning)
+                return
+            }
+            repositoriesPaging.currentPage += 1
+            fetchRepositories()
         }
     }
 }

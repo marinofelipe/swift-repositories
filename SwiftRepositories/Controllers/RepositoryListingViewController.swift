@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftMessages
 
 class RepositoryListingViewController: UIViewController {
     
@@ -15,15 +16,12 @@ class RepositoryListingViewController: UIViewController {
     var repositories: [Repository]? {
         didSet {
             // TODO: Save Repositories for offline access
-            
-            self.viewModel.repositories = repositories?.map({ return RepositoryViewModel(repository: $0) })
             collectionView.reloadData()
         }
     }
     @IBOutlet weak var collectionView: UICollectionView!
     
     var searchingFilter: String?
-    fileprivate var repositoriesPaging = RepositoriesPaging()
     
     //custom views
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -36,7 +34,6 @@ class RepositoryListingViewController: UIViewController {
         titlelessBackButton()
         configCollectionViewLayout()
         configSearch()
-        fetchRepositories()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,52 +79,6 @@ class RepositoryListingViewController: UIViewController {
             UITextField.appearance().tintColor = .black
         } else {
             //TODO: add search on earlier versions
-        }
-    }
-    
-    // MARK: Data
-    private func fetchRepositories(completion: (() -> Void)? = nil) {
-        RepositoriesHandler.get(atPage: repositoriesPaging.currentPage) { response in
-            if response?.statusCode == .success {
-                self.activityIndicator.stopAnimating()
-                self.emptyListLabel.isHidden = true
-                
-                if let total = response?.total, self.repositoriesPaging.totalItems != total {
-                    self.repositoriesPaging.totalItems = total
-                }
-                
-                guard response?.repositories != nil else { return }
-                
-                guard self.viewModel.repositories != nil else {
-                    self.repositories = response?.repositories
-                    completion?()
-                    return
-                }
-                guard self.repositoriesPaging.currentPage != 1 else { return }
-                response?.repositories?.forEach({ self.viewModel.repositories?.append(RepositoryViewModel(repository: $0)) })
-            } else if self.viewModel.repositories == nil {
-                self.emptyListLabel.isHidden = false
-                
-                // TODO: add error snackbar
-            }
-            completion?()
-        }
-    }
-}
-
-// MARK: UICollectionViewDelegate
-extension RepositoryListingViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        let referenceItemToNextFetch = (repositoriesPaging.itemsPerPage * repositoriesPaging.currentPage) - 2 //breath
-        if indexPath.row >= referenceItemToNextFetch && repositoriesPaging.currentPage < repositoriesPaging.numberOfPages {
-            
-            guard Reachability.shared.isConnected() else {
-                // TODO: not connected snackbar
-                return
-            }
-            repositoriesPaging.currentPage += 1
-            fetchRepositories()
         }
     }
 }
@@ -217,11 +168,25 @@ extension RepositoryListingViewController: GridHeightLayoutDelegate {
             string = viewModel.repositories![indexPath.item].description
         }
         
-        let attributedString = NSAttributedString(string: string ?? "", attributes: [.font : UIFont(name: "Avenir-Light", size: 12)!])
+        let attributedString = NSAttributedString(string: string ?? "", attributes: [.font : UIFont(name: "Avenir-Light", size: 15)!])
         let boundingRect = attributedString.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
         
         var height = boundingRect.height
         height += 10 + 10 + 30 + 15 + 20 //margins and other fixed cell heights
         return height
+    }
+}
+
+extension RepositoryListingViewController {
+    func showSnackBar(with message: String, theme: Theme = .error) {
+        let view = MessageView.viewFromNib(layout: .cardView)
+        view.configureTheme(theme)
+        view.configureDropShadow()
+        
+        let title = theme == .warning ? "Warning" : "Error"
+        view.configureContent(title: title, body: message)
+        view.button?.isHidden = true
+        
+        SwiftMessages.show(view: view)
     }
 }

@@ -15,17 +15,20 @@ PODS:
   - OHHTTPStubs/OHPathHelpers (6.1.0)
   - OHHTTPStubs/Swift (6.1.0):
     - OHHTTPStubs/Default
+  - SwiftMessages (4.1.0)
 
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage
   - OHHTTPStubs/Swift
+  - SwiftMessages
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
   OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
+  SwiftMessages: 1bacc783c8f10bdfdc57c14860cae8a1f1fa6591
 
-PODFILE CHECKSUM: 63d72f201e0efd41a8b1c731727e8443c09cfa1e
+PODFILE CHECKSUM: f9e16c597344f9a89a17becfcfd90f8ef31ed20f
 
 COCOAPODS: 1.4.0

@@ -14,7 +14,7 @@ struct RepositoriesResponse {
     let statusCode: NetworkingStatus
     let message: String?
     
-    init(_ repositories: [Repository]?, total: Int? = nil, status: NetworkingStatus, message: String = "") {
+    init(_ repositories: [Repository]?, total: Int? = nil, status: NetworkingStatus, message: String? = nil) {
         self.repositories = repositories
         self.total = total
         self.statusCode = status
@@ -39,7 +39,7 @@ class RepositoriesHandler {
             
             completion(success)
         }) { response, _ in
-            let failure = RepositoriesResponse(nil, status: response?.statusCode ?? .unknown)
+            let failure = RepositoriesResponse(nil, status: response?.statusCode ?? .unknown, message: response?.message)
             completion(failure)
         }
     }

@@ -16,12 +16,26 @@ class RepositoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var ownerUsernameLabel: UILabel!
     @IBOutlet weak var forksCountLabel: UILabel!
     @IBOutlet weak var starsCountLabel: UILabel!
+    @IBOutlet weak var forksImageView: UIImageView!
+    @IBOutlet weak var starsImageView: UIImageView!
     
     fileprivate var shadowOffsetWidth: Int = 0
     fileprivate var shadowOffsetHeight: Int = 4
     fileprivate var shadowColor: UIColor? = UIColor.gray
     fileprivate var shadowOpacity: Float = 0.5
     fileprivate var cornerRadius: CGFloat = 5
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        let forkTemplateImage = #imageLiteral(resourceName: "ic-fork").withRenderingMode(.alwaysTemplate)
+        forksImageView.image = forkTemplateImage
+        forksImageView.tintColor = UIColor(red: 255.0/255.0, green: 135.0/255.0, blue: 38.0/255.0, alpha: 1.0)
+        
+        let starTemplateImage = #imageLiteral(resourceName: "ic-star").withRenderingMode(.alwaysTemplate)
+        starsImageView.image = starTemplateImage
+        starsImageView.tintColor = UIColor(red: 255.0/255.0, green: 135.0/255.0, blue: 38.0/255.0, alpha: 1.0)
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()

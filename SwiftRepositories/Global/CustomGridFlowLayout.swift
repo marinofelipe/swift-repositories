@@ -16,13 +16,25 @@ class CustomGridFlowLayout: UICollectionViewFlowLayout {
     
     weak var delegate: GridHeightLayoutDelegate?
     
-    lazy var numberOfColumns: Int = {
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            return 2
-        } else {
-            return 1
+    var orientationColumnMultiplier: Int {
+        get {
+            switch UIDevice.current.orientation {
+            case .portrait:
+                return 1
+            default:
+                return 2
+            }
         }
-    }()
+    }
+    var numberOfColumns: Int {
+        get {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                return 2 * orientationColumnMultiplier
+            } else {
+                return 1 * orientationColumnMultiplier
+            }
+        }
+    }
     lazy var cellMargins: CGFloat = {
         if UIDevice.current.userInterfaceIdiom == .pad {
             return 10.0

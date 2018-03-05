@@ -6,6 +6,7 @@ target 'SwiftRepositories' do
 
   pod 'Alamofire'
   pod 'AlamofireImage'
+  pod 'SwiftMessages'
 
   target 'SwiftRepositoriesTests' do
     inherit! :search_paths

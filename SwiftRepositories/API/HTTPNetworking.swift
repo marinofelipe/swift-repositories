@@ -47,6 +47,7 @@ class HTTPNetworking {
         
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = method.rawValue
+        request.addValue(Constants.API.token, forHTTPHeaderField: "Authorization")
         request.timeoutInterval = 45
         
         let manager = Alamofire.SessionManager.default
