@@ -70,6 +70,16 @@ class RepositoriesViewController: RepositoryListingViewController {
                         }
                         guard self.viewModel.repositories != nil else {
                             self.viewModel.repositories = response?.repositories
+                            
+                            
+                            //
+                            
+                            let repositoriesEntities = self.viewModel.repositories?.map({ return RepositoryEntity(with: $0) })
+                            try? CoreDataStack.shared.saveContext()
+                            
+                            
+                            //
+                            
                             self.collectionView.reloadData()
                             completion?()
                             return
@@ -90,6 +100,15 @@ class RepositoriesViewController: RepositoryListingViewController {
                         var theme: Theme = .error
                         if response?.statusCode == .offline {
                             theme = .warning
+                            
+                            //
+                            
+                            
+                            self.viewModel.repositories = RepositoryEntity.fetchAll()?.map({ return RepositoryViewModel(repositoryEntity: $0) })
+                            self.collectionView.reloadData()
+                            
+                            
+                            //
                         }
                         completion?()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.46, execute: {

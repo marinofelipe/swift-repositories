@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D47" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="RepositoryEntity" representedClassName="RepositoryEntity" syncable="YES">
+        <attribute name="body_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="forks_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="owner_avatar_url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="owner_username" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stars_count" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="RepositoryEntity" positionX="-63" positionY="-18" width="128" height="165"/>
+    </elements>
+</model>

@@ -82,7 +82,7 @@ class RepositoryCollectionViewCell: UICollectionViewCell {
     // MARK: Setup
     func setup(with repository: RepositoryViewModel?) {
         viewModel = repository
-        if let ownerImageUrl = repository?.ownerImageUrl {
+        if let ownerImageUrl = repository?.ownerAvatarUrl {
             imageView.load(stringUrl: ownerImageUrl)
         }
         nameLabel.text = repository?.name

@@ -28,7 +28,7 @@ struct RepositoryViewModel {
     var name: String?
     var description: String?
     var ownerUsername: String?
-    var ownerImageUrl: String?
+    var ownerAvatarUrl: String?
     var starsCount: String?
     var forksCount: String?
     var isFavorite: Bool = false
@@ -41,7 +41,7 @@ extension RepositoryViewModel {
         self.name = repository.name
         self.description = repository.description
         self.ownerUsername = repository.owner?.login
-        self.ownerImageUrl = repository.owner?.avatarUrl
+        self.ownerAvatarUrl = repository.owner?.avatarUrl
         
         if let starsCount = repository.starsCount {
             self.starsCount = String(starsCount)
@@ -49,6 +49,18 @@ extension RepositoryViewModel {
         if let forksCount = repository.forksCount {
             self.forksCount = String(forksCount)
         }
+    }
+    
+    // MARK: init from Core Data
+    init(repositoryEntity: RepositoryEntity) {
+        self.id = Int(repositoryEntity.id)
+        self.name = repositoryEntity.name
+        self.description = repositoryEntity.body_description
+        self.ownerUsername = repositoryEntity.owner_username
+        self.ownerAvatarUrl = repositoryEntity.owner_avatar_url
+        self.forksCount = repositoryEntity.forks_count
+        self.starsCount = repositoryEntity.stars_count
+        self.isFavorite = repositoryEntity.isFavorite
     }
 }
 
