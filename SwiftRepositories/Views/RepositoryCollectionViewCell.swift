@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol FavoriteRepositoryDelegate: class {
-    func didFavorite()
-}
-
 class RepositoryCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -82,6 +78,7 @@ class RepositoryCollectionViewCell: UICollectionViewCell {
     // MARK: Setup
     func setup(with repository: RepositoryViewModel?) {
         viewModel = repository
+        
         if let ownerImageUrl = repository?.ownerAvatarUrl {
             imageView.load(stringUrl: ownerImageUrl)
         }
@@ -97,6 +94,7 @@ class RepositoryCollectionViewCell: UICollectionViewCell {
         if viewModel != nil {
             viewModel!.isFavorite = !viewModel!.isFavorite
         }
+        
         UIView.transition(with: favoriteButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
             self.favoriteButton.setImage(self.favoriteButtonImage, for: .normal)
         })

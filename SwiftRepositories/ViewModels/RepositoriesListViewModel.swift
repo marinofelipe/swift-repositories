@@ -24,14 +24,25 @@ extension RepositoriesListViewModel {
 
 struct RepositoryViewModel {
     
-    var id: Int?
+    var id: Int
     var name: String?
     var description: String?
     var ownerUsername: String?
     var ownerAvatarUrl: String?
     var starsCount: String?
     var forksCount: String?
-    var isFavorite: Bool = false
+    var isFavorite: Bool
+    {
+        get {
+            let repositoryEntity = RepositoryEntity.fetch(withId: id)
+            return repositoryEntity?.isFavorite ?? false
+        }
+        set {
+            let repositoryEntity = RepositoryEntity.fetch(withId: id)
+            repositoryEntity?.isFavorite = newValue
+            try? CoreDataStack.shared.saveContext()
+        }
+    }
 }
 
 extension RepositoryViewModel {
@@ -59,8 +70,7 @@ extension RepositoryViewModel {
         self.ownerUsername = repositoryEntity.owner_username
         self.ownerAvatarUrl = repositoryEntity.owner_avatar_url
         self.forksCount = repositoryEntity.forks_count
-        self.starsCount = repositoryEntity.stars_count
+        self.starsCount = String(repositoryEntity.stars_count)
         self.isFavorite = repositoryEntity.isFavorite
     }
 }
-

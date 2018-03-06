@@ -23,7 +23,7 @@ struct RepositoriesArray: Decodable {
 
 struct Repository: Decodable {
     
-    var id: Int?
+    var id: Int
     var name: String?
     var description: String?
     var owner: Owner?
@@ -43,7 +43,7 @@ struct Repository: Decodable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.id = try container.decodeIfPresent(Int.self, forKey: .id)
+        self.id = try container.decode(Int.self, forKey: .id)
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.owner = try container.decodeIfPresent(Owner.self, forKey: .owner)
@@ -53,6 +53,7 @@ struct Repository: Decodable {
     
     // convenience init for testing
     init(name: String) {
+        self.id = 0
         self.name = name
     }
 }

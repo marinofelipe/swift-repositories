@@ -28,20 +28,17 @@ public class RepositoryEntity: NSManagedObject {
     convenience init(with repository: RepositoryViewModel) {
         self.init()
         
-        if let id = repository.id {
-            self.id = Int32(id)
-        }
-        
+        self.id = Int32(repository.id)
         self.name = repository.name
         self.body_description = repository.description
         self.owner_username = repository.ownerUsername
         self.owner_avatar_url = repository.ownerAvatarUrl
         self.forks_count = repository.forksCount
-        self.stars_count = repository.starsCount
+        self.stars_count = Int32(repository.starsCount ?? "0") ?? 0
         self.isFavorite = repository.isFavorite
     }
     
-    // MARK: Methods
+    // MARK: Fetch
     class func fetchAll(favorites: Bool? = nil) -> [RepositoryEntity]? {
         var predicate: NSPredicate?
         var stringPredicate = ""
@@ -55,10 +52,42 @@ public class RepositoryEntity: NSManagedObject {
         }
         
         var sort = [NSSortDescriptor]()
-        sort.append(NSSortDescriptor(key: "id", ascending: false))
+        sort.append(NSSortDescriptor(key: "stars_count", ascending: false))
         
         let repositories = try? CoreDataStack.shared.managedObjectContext.fetchObjects(RepositoryEntity.self, sortBy: sort, predicate: predicate)
         return repositories
+    }
+    
+    class func fetch(withId id: Int) -> RepositoryEntity? {
+        let predicate = NSPredicate(format: "id == \(id)")
+        let repositories = try? CoreDataStack.shared.managedObjectContext.fetchObjects(RepositoryEntity.self, sortBy: nil, predicate: predicate)
+        
+        return repositories?.first
+    }
+    
+    // MARK: Delete
+    class func delete(withId id: Int) throws {
+        let predicate = NSPredicate(format: "id == \(id)")
+        let repositories = try? CoreDataStack.shared.managedObjectContext.fetchObjects(RepositoryEntity.self, sortBy: nil, predicate: predicate)
+        
+        guard repositories != nil else {
+            return
+        }
+        for repository in repositories! {
+            CoreDataStack.shared.managedObjectContext.delete(repository)
+        }
+    }
+    
+    
+    class func deleteAll() throws {
+        let repositories = try? CoreDataStack.shared.managedObjectContext.fetchObjects(RepositoryEntity.self)
+        
+        guard repositories != nil else {
+            return
+        }
+        for repository in repositories! {
+            CoreDataStack.shared.managedObjectContext.delete(repository)
+        }
     }
     
     func saveToStore() {
@@ -74,6 +103,6 @@ extension RepositoryEntity {
     @NSManaged public var owner_username: String?
     @NSManaged public var owner_avatar_url: String?
     @NSManaged public var forks_count: String?
-    @NSManaged public var stars_count: String?
+    @NSManaged public var stars_count: Int32
     @NSManaged public var isFavorite: Bool
 }

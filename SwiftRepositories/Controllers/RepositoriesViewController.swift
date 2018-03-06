@@ -17,6 +17,7 @@ class RepositoriesViewController: RepositoryListingViewController {
     fileprivate var repositoriesPaging = RepositoriesPaging()
     fileprivate var refreshControl: RefreshControl?
     let animationController = AnimatedTransitioningController()
+    var didShowNotConnectedSnack: Bool = false
     
     var cellImageView = UIImageView()
     var imageFrameOnMainView = CGRect.zero
@@ -58,6 +59,7 @@ class RepositoriesViewController: RepositoryListingViewController {
                     if response?.statusCode == .success {
                         self.activityIndicator.stopAnimating()
                         self.emptyListLabel.isHidden = true
+                        self.didShowNotConnectedSnack = false
                         
                         if let total = response?.total, self.repositoriesPaging.totalItems != total {
                             self.repositoriesPaging.totalItems = total
@@ -70,20 +72,18 @@ class RepositoriesViewController: RepositoryListingViewController {
                         }
                         guard self.viewModel.repositories != nil else {
                             self.viewModel.repositories = response?.repositories
-                            
-                            
-                            //
-                            
-                            let repositoriesEntities = self.viewModel.repositories?.map({ return RepositoryEntity(with: $0) })
+ 
+                            try? RepositoryEntity.deleteAll()
+                            let _ = self.viewModel.repositories?.map({ return RepositoryEntity(with: $0) })
                             try? CoreDataStack.shared.saveContext()
-                            
-                            
-                            //
                             
                             self.collectionView.reloadData()
                             completion?()
                             return
                         }
+                        
+                        let _ = response?.repositories?.map({ return RepositoryEntity(with: $0) })
+                        try? CoreDataStack.shared.saveContext()
                         
                         guard self.repositoriesPaging.currentPage != 1 else { return }
                         
@@ -93,23 +93,19 @@ class RepositoriesViewController: RepositoryListingViewController {
                         }
                     } else {
                         self.repositoriesPaging.currentPage > 1 ? self.repositoriesPaging.currentPage -= 1 : ()
-                        if self.viewModel.repositories == nil {
-                            self.emptyListLabel.isHidden = false
-                        }
                         
                         var theme: Theme = .error
                         if response?.statusCode == .offline {
                             theme = .warning
                             
-                            //
-                            
-                            
                             self.viewModel.repositories = RepositoryEntity.fetchAll()?.map({ return RepositoryViewModel(repositoryEntity: $0) })
                             self.collectionView.reloadData()
-                            
-                            
-                            //
                         }
+                        
+                        if self.viewModel.repositories == nil {
+                            self.emptyListLabel.isHidden = false
+                        }
+                        
                         completion?()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.46, execute: {
                             self.showSnackBar(with: response?.message ?? Constants.Message.repositoriesError, theme: theme)
@@ -213,9 +209,12 @@ extension RepositoriesViewController: UICollectionViewDelegate {
         if indexPath.row >= referenceItemToNextFetch && repositoriesPaging.currentPage < repositoriesPaging.numberOfPages {
             
             guard Reachability.shared.isConnected() else {
-                showSnackBar(with: Constants.Message.notConnected, theme: .warning)
+                !didShowNotConnectedSnack ? showSnackBar(with: Constants.Message.notConnected, theme: .warning) : ()
+                didShowNotConnectedSnack = true
                 return
             }
+            
+            didShowNotConnectedSnack = false
             repositoriesPaging.currentPage += 1
             fetchRepositories()
         }
