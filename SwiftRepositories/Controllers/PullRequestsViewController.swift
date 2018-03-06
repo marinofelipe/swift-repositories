@@ -69,11 +69,6 @@ class PullRequestsViewController: UIViewController {
         titlelessBackButton()
         improveBarButtonsLayout() //add count to them
         configCollectionViews()
-        
-        guard repository != nil else {
-            //message
-            return
-        }
         fetchPullRequests()
     }
     
@@ -87,6 +82,8 @@ class PullRequestsViewController: UIViewController {
         DispatchQueue.global(qos: .userInteractive).async {
             PullRequestsHandler.getAll(fromRepository: self.repository, completion: { response in
                 DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    
                     if response?.statusCode == .success {
                         self.activityIndicator.stopAnimating()
                         
@@ -100,18 +97,12 @@ class PullRequestsViewController: UIViewController {
                         self.openedCollectionView.reloadData()
                         completion?()
                     } else {
-                        if self.viewModel.pullRequests == nil {
-                            //                            self.emptyListLabel.isHidden = false
-                        }
-                        
                         var theme: Theme = .error
                         if response?.statusCode == .offline {
                             theme = .warning
                         }
                         completion?()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.46, execute: {
-                            //                            self.showSnackBar(with: response?.message ?? Constants.Message.repositoriesError, theme: theme)
-                        })
+                        self.showSnackBar(with: response?.message ?? Constants.Message.repositoriesError, theme: theme)
                     }
                 }
             })
