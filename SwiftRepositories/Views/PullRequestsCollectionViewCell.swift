@@ -16,6 +16,11 @@ class PullRequestsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var authorUsername: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
+    override func layoutSubviews() {
+        layer.cornerRadius = 2.0
+        super.layoutSubviews()
+    }
+    
     // MARK: Setup
     func setup(with pullRequest: PullRequestViewModel?) {
         titleLabel.text = pullRequest?.title

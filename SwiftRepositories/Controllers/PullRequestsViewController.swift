@@ -67,7 +67,7 @@ class PullRequestsViewController: UIViewController {
         
         self.title = viewModel.title
         titlelessBackButton()
-        improveBarButtonsAlingment() //add count to them
+        improveBarButtonsLayout() //add count to them
         configCollectionViews()
         
         guard repository != nil else {
@@ -119,11 +119,10 @@ class PullRequestsViewController: UIViewController {
     }
     
     // MARK: Labels
-    func improveBarButtonsAlingment() {
+    func improveBarButtonsLayout() {
         openBarButton.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: headerToolbar.frame.width / 2, height: headerToolbar.frame.height)
         
         closedBarButton.frame = CGRect(x: headerToolbar.frame.width / 2, y: view.frame.origin.y, width: headerToolbar.frame.width / 2, height: headerToolbar.frame.height)
-        closedBarButton.setImage(nil, for: .selected)
     }
     
     // MARK: Actions

@@ -59,11 +59,10 @@ class RepositoryCollectionViewCell: UICollectionViewCell {
     }
     
     override func layoutSubviews() {
-        super.layoutSubviews()
-        
         setupCustomLayer()
-        
         favoriteButton.setImage(favoriteButtonImage, for: .normal)
+        
+        super.layoutSubviews()
     }
     
     private func setupCustomLayer() {
