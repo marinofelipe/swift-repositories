@@ -50,7 +50,7 @@ class RepositoriesViewControllerTests: XCTestCase {
     }
     
     func testSearchingWithValidRepositoryName() {
-        if let firstRepositoryName = underTestController.repositories?.first?.name {
+        if let firstRepositoryName = underTestController.viewModel.repositories?.first?.name {
             underTestController.searchBar(UISearchBar(), textDidChange: firstRepositoryName)
             XCTAssertEqual(underTestController.collectionView.numberOfItems(inSection: 0), 1)
         }
@@ -59,7 +59,7 @@ class RepositoriesViewControllerTests: XCTestCase {
     func testSearchWithCommonPrefix() {
         let repositories = [Repository(name: "Test 1"), Repository(name: "Test 2"), Repository(name: "Test 3"), Repository(name: "4")]
         underTestController.viewModel.repositories = repositories.map({ return RepositoryViewModel(repository: $0) })
-        underTestController.repositories = repositories
+        underTestController.collectionView.reloadData()
         
         underTestController.searchBar(UISearchBar(), textDidChange: "Test")
         XCTAssertEqual(underTestController.collectionView.numberOfItems(inSection: 0), 3)

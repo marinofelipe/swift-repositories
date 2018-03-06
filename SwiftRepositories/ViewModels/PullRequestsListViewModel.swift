@@ -38,6 +38,7 @@ extension PullRequestViewModel {
     init(pullRequest: PullRequest) {
         self.id = pullRequest.id
         self.title = pullRequest.title
+        self.description = pullRequest.description
         
         if let date = pullRequest.date {
             self.date = Date.fromString(date).convertToLongString()

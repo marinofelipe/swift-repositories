@@ -36,6 +36,7 @@ typealias NetworkingFailure = (_ serviceResponse: NetworkingResponse?, _ error: 
 class HTTPNetworking {
     
     fileprivate class func requestAlamofire(method: HTTPMethod, url: String,
+                                            parameters: [String: Any]? = nil,
                                             success: @escaping NetworkingSuccess,
                                             failure: @escaping NetworkingFailure) {
         
@@ -49,6 +50,10 @@ class HTTPNetworking {
         request.httpMethod = method.rawValue
         request.addValue(Constants.API.token, forHTTPHeaderField: "Authorization")
         request.timeoutInterval = 45
+        
+        if let parameters = parameters {
+            request.httpBody = try? JSONSerialization.data(withJSONObject: parameters)
+        }
         
         let manager = Alamofire.SessionManager.default
         manager.request(request).responseJSON { response in
@@ -89,10 +94,11 @@ class HTTPNetworking {
     }
     
     class func request(method: HTTPMethod, url: String,
+                       parameters: [String: Any]? = nil,
                        success: @escaping NetworkingSuccess,
                        failure: @escaping NetworkingFailure) {
         
-        self.requestAlamofire(method: method, url: url, success: { response in
+        self.requestAlamofire(method: method, url: url, parameters: parameters, success: { response in
             
             guard response?.data != nil else {
                 success(NetworkingResponse(nil, status: .success))

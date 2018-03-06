@@ -6,7 +6,7 @@
 //  Copyright © 2018 Felipe Lefèvre Marino. All rights reserved.
 //
 
-enum PullRequestState: Int {
+enum PullRequestState: String {
     case closed, open
 }
 
@@ -27,6 +27,7 @@ struct PullRequest: Decodable {
         case date = "created_at"
         case author = "user"
         case url = "html_url"
+        case state = "state"
     }
     
     public init(from decoder: Decoder) throws {
@@ -38,6 +39,7 @@ struct PullRequest: Decodable {
         self.date = try container.decodeIfPresent(String.self, forKey: .date)
         self.author = try container.decodeIfPresent(Author.self, forKey: .author)
         self.url = try container.decodeIfPresent(String.self, forKey: .url)
+        self.state = try container.decodeIfPresent(String.self, forKey: .state)
     }
 }
 

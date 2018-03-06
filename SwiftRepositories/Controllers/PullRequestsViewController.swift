@@ -25,8 +25,41 @@ class PullRequestsViewController: UIViewController {
     @IBOutlet weak var selectedBar: UIView!
     @IBOutlet var selectedBarLeadingConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var noOpenPullRequestsLabel: UILabel!
+    @IBOutlet weak var noClosedPullRequestsLabel: UILabel!
+    
     var repository: RepositoryViewModel?
-    fileprivate var viewModel = PullRequestsListViewModel()
+    fileprivate var viewModel = PullRequestsListViewModel() {
+        didSet {
+            openPullRequests = viewModel.pullRequests?.filter({ $0.state == PullRequestState.open.rawValue })
+            closedPullRequests = viewModel.pullRequests?.filter({ $0.state == PullRequestState.closed.rawValue })
+        }
+    }
+    var openPullRequests: [PullRequestViewModel]? {
+        didSet {
+            if let openPullRequests = openPullRequests, openPullRequests.count > 0 {
+                noOpenPullRequestsLabel.isHidden = true
+            } else {
+                noOpenPullRequestsLabel.isHidden = false
+            }
+        }
+    }
+    var closedPullRequests: [PullRequestViewModel]? {
+        didSet {
+            if let closedPullRequests = closedPullRequests, closedPullRequests.count > 0 {
+                noClosedPullRequestsLabel.isHidden = true
+            } else {
+                noClosedPullRequestsLabel.isHidden = false
+            }
+        }
+    }
+    var showingPullRequests: [PullRequestViewModel]? {
+        if openBarButton.isSelected {
+            return openPullRequests
+        } else {
+            return closedPullRequests
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -65,7 +98,6 @@ class PullRequestsViewController: UIViewController {
                         
                         self.viewModel.pullRequests = response?.pullRequests
                         self.openedCollectionView.reloadData()
-                        self.closedCollectionView.reloadData()
                         completion?()
                     } else {
                         if self.viewModel.pullRequests == nil {
@@ -121,19 +153,22 @@ class PullRequestsViewController: UIViewController {
         let layout = CustomGridFlowLayout()
         layout.delegate = self
         openedCollectionView.collectionViewLayout = layout
-        closedCollectionView.collectionViewLayout = layout
     }
     
     //MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segue.openInBrowser {
             if let destination = segue.destination as? WebViewController {
-                //                if let indexPath = tableView.indexPathForSelectedRow {
-                //                    let pullRequest = self.pullRequests![indexPath.row]
-                ////                    let url = URL(string: pullRequest.url)
-                ////                    destination.url = url
-                //
-                //                }
+                var indexPath: IndexPath?
+                if openBarButton.isSelected {
+                    indexPath = openedCollectionView.indexPathsForSelectedItems?.first
+                } else {
+                    indexPath = closedCollectionView.indexPathsForSelectedItems?.first
+                }
+                    
+                let pullRequest = self.showingPullRequests![indexPath?.item ?? 0]
+                let url = URL(string: pullRequest.url ?? "")
+                destination.url = url
             }
         }
     }
@@ -147,14 +182,17 @@ extension PullRequestsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.pullRequests?.count ?? 0
+        guard showingPullRequests != nil else { return 0 }
+        return showingPullRequests!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifier.Cell.pullRequest, for: indexPath) as? PullRequestsCollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifier.Cell.pullRequest, for: indexPath) as? PullRequestsCollectionViewCell,
+            showingPullRequests != nil {
             
-            let pullRequest = viewModel.pullRequests![indexPath.item]
+            let pullRequest = showingPullRequests![indexPath.item]
+        
             cell.setup(with: pullRequest)
             
             return cell
@@ -168,10 +206,13 @@ extension PullRequestsViewController: UICollectionViewDataSource {
 extension PullRequestsViewController: GridHeightLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForCellAt indexPath: IndexPath, withWidth width: CGFloat) -> CGFloat {
         
-        var string: String? = ""
-        string = viewModel.pullRequests![indexPath.item].description
+        guard showingPullRequests != nil else { return  0.0 }
+        let pullRequest = showingPullRequests![indexPath.item]
         
-        let attributedString = NSAttributedString(string: string ?? "", attributes: [.font : UIFont(name: "Avenir-Light", size: 15)!])
+        var string: String? = ""
+        string = pullRequest.description
+        
+        let attributedString = NSAttributedString(string: string ?? "", attributes: [.font : UIFont(name: "Avenir-Light", size: 12)!])
         let boundingRect = attributedString.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
         
         var height = boundingRect.height

@@ -14,9 +14,7 @@ struct Constants {
         static var baseUrl: String {
             return Bundle.main.object(forInfoDictionaryKey: "ApiUrl") as! String
         }
-        static var token: String {
-            return Bundle.main.object(forInfoDictionaryKey: "ApiToken") as! String
-        }
+        static var token: String = ""
         
         static let repositoriesByStars = "/search/repositories?q=language:swift&sort=stars"
         
