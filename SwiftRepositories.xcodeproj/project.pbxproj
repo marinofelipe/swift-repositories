@@ -17,6 +17,7 @@
 		D509C83C204E2E92008B521F /* PullRequestsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D509C83B204E2E92008B521F /* PullRequestsCollectionViewCell.swift */; };
 		D509C83E204E2F11008B521F /* PullRequestsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D509C83D204E2F11008B521F /* PullRequestsHandler.swift */; };
 		D509C840204E2F97008B521F /* PullRequestsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D509C83F204E2F97008B521F /* PullRequestsListViewModel.swift */; };
+		D509C842204E9AB3008B521F /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D509C841204E9AB3008B521F /* UINavigationController.swift */; };
 		D53E0CDC2047AAF400DC8759 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0CDB2047AAF400DC8759 /* AppDelegate.swift */; };
 		D53E0CE12047AAF400DC8759 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D53E0CDF2047AAF400DC8759 /* Main.storyboard */; };
 		D53E0CE62047AAF400DC8759 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D53E0CE52047AAF400DC8759 /* Assets.xcassets */; };
@@ -66,6 +67,7 @@
 		D509C83B204E2E92008B521F /* PullRequestsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsCollectionViewCell.swift; sourceTree = "<group>"; };
 		D509C83D204E2F11008B521F /* PullRequestsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsHandler.swift; sourceTree = "<group>"; };
 		D509C83F204E2F97008B521F /* PullRequestsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsListViewModel.swift; sourceTree = "<group>"; };
+		D509C841204E9AB3008B521F /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		D53E0CD82047AAF400DC8759 /* SwiftRepositories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftRepositories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D53E0CDB2047AAF400DC8759 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D53E0CE02047AAF400DC8759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				D509C839204CFA9B008B521F /* UIColor.swift */,
 				D509C837204CAFD0008B521F /* UIImageView.swift */,
 				D509C833204BDEFA008B521F /* Date.swift */,
+				D509C841204E9AB3008B521F /* UINavigationController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				D53E0D68204A77CD00DC8759 /* Repository.swift in Sources */,
 				D53E0D6E204A7D1800DC8759 /* RepositoryCollectionViewCell.swift in Sources */,
 				D53E0D032047B98E00DC8759 /* Constants.swift in Sources */,
+				D509C842204E9AB3008B521F /* UINavigationController.swift in Sources */,
 				D53E0D70204B45BF00DC8759 /* UIImage.swift in Sources */,
 				D53E0D6C204A7C1200DC8759 /* RepositoryListingViewController.swift in Sources */,
 				D53E0D072047BE8000DC8759 /* RefreshControl.swift in Sources */,

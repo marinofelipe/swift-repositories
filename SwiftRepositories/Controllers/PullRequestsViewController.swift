@@ -206,7 +206,7 @@ extension PullRequestsViewController: GridHeightLayoutDelegate {
         let boundingRect = attributedString.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
         
         var height = boundingRect.height
-        height += 10 + 23 + 16.5 + 11 + 30 //margins and other fixed cell heights
+        height += 10 + 23 + 17.5 + 11 + 30 + 5 //margins and other fixed cell heights
         return height
     }
 }

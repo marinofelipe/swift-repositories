@@ -23,6 +23,7 @@ class RepositoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var forksImageView: UIImageView!
     @IBOutlet weak var starsImageView: UIImageView!
     @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var ownerView: UIView!
     
     fileprivate var shadowOffsetWidth: Int = 0
     fileprivate var shadowOffsetHeight: Int = 4

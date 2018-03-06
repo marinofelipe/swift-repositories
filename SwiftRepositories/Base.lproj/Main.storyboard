@@ -165,9 +165,9 @@
                                             <outlet property="imageView" destination="aNN-6i-2SZ" id="HVs-3F-rRw"/>
                                             <outlet property="nameLabel" destination="8zH-Rh-gin" id="Ot3-Lg-zbp"/>
                                             <outlet property="ownerUsernameLabel" destination="uek-Y3-1XB" id="M6Q-VR-4Om"/>
+                                            <outlet property="ownerView" destination="erx-ft-u12" id="sRO-vO-8c1"/>
                                             <outlet property="starsCountLabel" destination="k2n-6I-qTg" id="gA2-7S-KlC"/>
                                             <outlet property="starsImageView" destination="Y6P-SL-uuO" id="ZDo-vy-Yww"/>
-                                            <segue destination="gH0-Kn-MPZ" kind="show" identifier="showPullRequests" id="s52-F5-5Pb"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -213,6 +213,7 @@
                         <outlet property="activityIndicator" destination="idd-Q4-XO5" id="pv7-lK-jzQ"/>
                         <outlet property="collectionView" destination="IYx-u8-4qO" id="OhX-ph-SvO"/>
                         <outlet property="emptyListLabel" destination="V60-BW-Nnw" id="ZXX-o9-mmA"/>
+                        <segue destination="gH0-Kn-MPZ" kind="show" identifier="showPullRequests" id="6IM-bg-Dh1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -320,7 +321,7 @@
                                                             <color key="textColor" red="0.24513187510000001" green="0.55981980180000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body to pull request lorem ipsum dolor sit amet lorem ipsum sit amet lorem lorem sit ipsum" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e2b-p9-Fsl">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body to pull request lorem ipsum dolor sit amet lorem ipsum sit amet lorem lorem sit ipsum" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="e2b-p9-Fsl">
                                                             <rect key="frame" x="5" y="33" width="363" height="16.5"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
                                                             <nil key="textColor"/>
@@ -531,7 +532,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q8C-j8-ExS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2735.1999999999998" y="466.41679160419795"/>
+            <point key="canvasLocation" x="2743" y="466"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="NwJ-hD-v1t">
@@ -1151,6 +1152,6 @@ aUd7R35HgwAAAAAAAAIBAAAAAAAAAFkAAAAAAAAAAAAAAAAAAEeFA
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="h6x-Tf-bJR"/>
-        <segue reference="s52-F5-5Pb"/>
+        <segue reference="6IM-bg-Dh1"/>
     </inferredMetricsTieBreakers>
 </document>
