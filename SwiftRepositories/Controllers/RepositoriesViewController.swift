@@ -19,7 +19,7 @@ class RepositoriesViewController: RepositoryListingViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         activityIndicator.stopAnimating()
         setupRefreshControl()
         viewModel.title = "Swift Repositories"
@@ -62,12 +62,11 @@ class RepositoriesViewController: RepositoryListingViewController {
                         guard response?.repositories != nil else { return }
                         
                         if completion != nil {
-                            self.repositories = nil
                             self.viewModel.repositories = nil
                         }
                         guard self.viewModel.repositories != nil else {
-                            self.viewModel.repositories = response?.repositories?.map({ return RepositoryViewModel(repository: $0) })
-                            self.repositories = response?.repositories
+                            self.viewModel.repositories = response?.repositories
+                            self.collectionView.reloadData()
                             completion?()
                             return
                         }
@@ -75,8 +74,8 @@ class RepositoriesViewController: RepositoryListingViewController {
                         guard self.repositoriesPaging.currentPage != 1 else { return }
                         
                         if let repositories = response?.repositories {
-                            self.viewModel.repositories?.append(contentsOf: repositories.map({ return RepositoryViewModel(repository: $0) }))
-                            self.repositories?.append(contentsOf: repositories)
+                            self.viewModel.repositories?.append(contentsOf: repositories)
+                            self.collectionView.reloadData()
                         }
                     } else {
                         self.repositoriesPaging.currentPage > 1 ? self.repositoriesPaging.currentPage -= 1 : ()
@@ -151,6 +150,24 @@ class RepositoriesViewController: RepositoryListingViewController {
                 self.draggingCell = nil
                 self.draggingRepository = nil
             })
+        }
+    }
+    
+    // MARK: Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Segue.pullRequests, let pullRequestsVC = segue.destination as? PullRequestsViewController {
+            var repository: RepositoryViewModel?
+            let selectedIndex = collectionView.indexPathsForSelectedItems?.first?.item
+            
+            guard selectedIndex != nil else { return }
+            
+            if let filter = searchingFilter {
+                repository = viewModel.repositories!.filter({ $0.name?.range(of: filter) != nil })[selectedIndex!]
+            } else {
+                repository = viewModel.repositories![selectedIndex!]
+            }
+            
+            pullRequestsVC.repository = repository
         }
     }
 }

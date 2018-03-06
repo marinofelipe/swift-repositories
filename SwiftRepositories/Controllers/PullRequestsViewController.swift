@@ -7,104 +7,183 @@
 //
 
 import UIKit
+import SwiftMessages
 
 class PullRequestsViewController: UIViewController {
-
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var tableView: UITableView!
     
-    //to viewModel
-    var repositoryName: String!
-    var repositoryOwner: String!
-    var nameAndLastName: String!
-    fileprivate var pullRequests: [PullRequest]?
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    @IBOutlet weak var openBarButton: UIButton!
+    @IBOutlet weak var closedBarButton: UIButton!
+    
+    @IBOutlet weak var openedCollectionView: UICollectionView!
+    @IBOutlet weak var closedCollectionView: UICollectionView!
+    
+    @IBOutlet weak var headerToolbar: UIToolbar!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var selectedBar: UIView!
+    @IBOutlet var selectedBarLeadingConstraint: NSLayoutConstraint!
+    
+    var repository: RepositoryViewModel?
+    fileprivate var viewModel = PullRequestsListViewModel()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = viewModel.title
         titlelessBackButton()
-
-        pullRequests = []
-        //mock pull requests
-        for _ in 0...10 {
-            let pullRequest = PullRequest(title: "Pull", body: "dae asd asd ae fas fafe fasf e faefajshfk jaksjhfk jahskfhk ajhekjhfk jahskfhk ashfjhei hfaewkf ", date: "03/04/2018")
-            pullRequests?.append(pullRequest)
-        }
+        improveBarButtonsAlingment() //add count to them
+        configCollectionViews()
         
-        setupTableView()
+        guard repository != nil else {
+            //message
+            return
+        }
+        fetchPullRequests()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Setup Table View
-    func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.estimatedRowHeight = 120
-        tableView.rowHeight = UITableViewAutomaticDimension
+    // MARK: Data
+    private func fetchPullRequests(completion: (() -> Void)? = nil) {
+        DispatchQueue.global(qos: .userInteractive).async {
+            PullRequestsHandler.getAll(fromRepository: self.repository, completion: { response in
+                DispatchQueue.main.async {
+                    if response?.statusCode == .success {
+                        self.activityIndicator.stopAnimating()
+                        
+                        guard response?.pullRequests != nil else { return }
+                        
+                        if completion != nil {
+                            self.viewModel.pullRequests = nil
+                        }
+                        
+                        self.viewModel.pullRequests = response?.pullRequests
+                        self.openedCollectionView.reloadData()
+                        self.closedCollectionView.reloadData()
+                        completion?()
+                    } else {
+                        if self.viewModel.pullRequests == nil {
+                            //                            self.emptyListLabel.isHidden = false
+                        }
+                        
+                        var theme: Theme = .error
+                        if response?.statusCode == .offline {
+                            theme = .warning
+                        }
+                        completion?()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.46, execute: {
+                            //                            self.showSnackBar(with: response?.message ?? Constants.Message.repositoriesError, theme: theme)
+                        })
+                    }
+                }
+            })
+        }
     }
     
-
+    // MARK: Labels
+    func improveBarButtonsAlingment() {
+        openBarButton.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: headerToolbar.frame.width / 2, height: headerToolbar.frame.height)
+        
+        closedBarButton.frame = CGRect(x: headerToolbar.frame.width / 2, y: view.frame.origin.y, width: headerToolbar.frame.width / 2, height: headerToolbar.frame.height)
+        closedBarButton.setImage(nil, for: .selected)
+    }
+    
+    // MARK: Actions
+    @IBAction func touchedButton(_ sender: Any) {
+        if let senderButton = sender as? UIButton {
+            let isSelecting = !senderButton.isSelected
+            if isSelecting {
+                openBarButton.isSelected = false
+                closedBarButton.isSelected = false
+                senderButton.isSelected = true
+                animate(touchOn: senderButton)
+            }
+        }
+    }
+    
+    private func animate(touchOn button: UIButton!) {
+        let index = button.tag
+        selectedBarLeadingConstraint.constant = CGFloat(index) * self.view.frame.size.width / 2
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+            self.scrollToColletion(atIndex: index)
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    // MARK: - Config Collection Views
+    private func configCollectionViews() {
+        let layout = CustomGridFlowLayout()
+        layout.delegate = self
+        openedCollectionView.collectionViewLayout = layout
+        closedCollectionView.collectionViewLayout = layout
+    }
+    
     //MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segue.openInBrowser {
             if let destination = segue.destination as? WebViewController {
-                if let indexPath = tableView.indexPathForSelectedRow {
-                    let pullRequest = self.pullRequests![indexPath.row]
-//                    let url = URL(string: pullRequest.url)
-//                    destination.url = url
-                    
-                }
+                //                if let indexPath = tableView.indexPathForSelectedRow {
+                //                    let pullRequest = self.pullRequests![indexPath.row]
+                ////                    let url = URL(string: pullRequest.url)
+                ////                    destination.url = url
+                //
+                //                }
             }
         }
     }
 }
 
-// MARK: - TableView Delegate
-extension PullRequestsViewController: UITableViewDelegate {
+// MARK: UICollectionViewDataSource
+extension PullRequestsViewController: UICollectionViewDataSource {
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 5.0
-    }
-}
-
-// MARK: - TableView DataSource
-extension PullRequestsViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pullRequests?.count ?? 0
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1;
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.pullRequests?.count ?? 0
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if let cell = tableView
-            .dequeueReusableCell(withIdentifier: Constants.Identifier.Cell.pullRequest, for: indexPath) as? PullRequestTableViewCell {
-        
-            let pullRequest = self.pullRequests![indexPath.row]
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifier.Cell.pullRequest, for: indexPath) as? PullRequestsCollectionViewCell {
             
-//            let formattedDate = Date.fromString(pullRequest.date)
-//            let stringDate = formattedDate.convertToLongString()
-            
-            cell.titleLabel.text = pullRequest.title
-            cell.bodyLabel.text = pullRequest.body
-            cell.ownerUsernameLabel.text = pullRequest.ownerNick
-//            cell.dateLabel.text = stringDate
-            cell.ownerNameLabel.text = nameAndLastName
-            cell.ownerImageView.image = #imageLiteral(resourceName: "star")
+            let pullRequest = viewModel.pullRequests![indexPath.item]
+            cell.setup(with: pullRequest)
             
             return cell
         }
         
-        assertionFailure("identifier for Constants.Identifier.Cell.pullRequest doesn't match with PullRequestTableViewCell class or nib not registered")
-        return UITableViewCell()
+        assertionFailure("identifier for Constants.Identifier.Cell.repository doesn't match with RepositoryCollectionViewCell class or nib not registered")
+        return UICollectionViewCell()
     }
 }
 
+extension PullRequestsViewController: GridHeightLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, heightForCellAt indexPath: IndexPath, withWidth width: CGFloat) -> CGFloat {
+        
+        var string: String? = ""
+        string = viewModel.pullRequests![indexPath.item].description
+        
+        let attributedString = NSAttributedString(string: string ?? "", attributes: [.font : UIFont(name: "Avenir-Light", size: 15)!])
+        let boundingRect = attributedString.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
+        
+        var height = boundingRect.height
+        height += 10 + 23 + 16.5 + 11 + 30 //margins and other fixed cell heights
+        return height
+    }
+}
+
+// MARK: UIScrollViewDelegate
+extension PullRequestsViewController: UIScrollViewDelegate {
+    
+    func scrollToColletion(atIndex index: Int) {
+        scrollView.contentOffset = CGPoint(x: scrollView.frame.size.width * CGFloat(index), y: 0)
+    }
+}

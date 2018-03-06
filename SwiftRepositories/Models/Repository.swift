@@ -6,6 +6,11 @@
 //  Copyright © 2018 Felipe Lefèvre Marino. All rights reserved.
 //
 
+protocol User {
+    var login: String? {get set}
+    var avatarUrl: String? {get set}
+}
+
 struct RepositoriesArray: Decodable {
     var total: Int
     var repositories: [Repository]
@@ -52,12 +57,12 @@ struct Repository: Decodable {
     }
 }
 
-struct Owner: Decodable {
-    var username: String?
-    var imageUrl: String?
+struct Owner: User, Decodable {
+    var login: String?
+    var avatarUrl: String?
     
     enum CodingKeys: String, CodingKey {
-        case username = "login"
-        case imageUrl = "avatar_url"
+        case login
+        case avatarUrl = "avatar_url"
     }
 }

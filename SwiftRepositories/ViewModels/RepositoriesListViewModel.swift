@@ -8,14 +8,14 @@
 
 import UIKit
 
-struct RepositoryListingViewModel {
+struct RepositoriesListViewModel {
     
     var title: String? = "Swift Repositories"
     var searchPlaceholder: String? = "search repositories.."
     var repositories: [RepositoryViewModel]?
 }
 
-extension RepositoryListingViewModel {
+extension RepositoriesListViewModel {
     
     init(repositories: [RepositoryViewModel]) {
         self.repositories = repositories
@@ -40,8 +40,8 @@ extension RepositoryViewModel {
         self.id = repository.id
         self.name = repository.name
         self.description = repository.description
-        self.ownerUsername = repository.owner?.username
-        self.ownerImageUrl = repository.owner?.imageUrl
+        self.ownerUsername = repository.owner?.login
+        self.ownerImageUrl = repository.owner?.avatarUrl
         
         if let starsCount = repository.starsCount {
             self.starsCount = String(starsCount)
@@ -51,3 +51,4 @@ extension RepositoryViewModel {
         }
     }
 }
+

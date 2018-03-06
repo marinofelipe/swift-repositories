@@ -6,43 +6,47 @@
 //  Copyright © 2018 Felipe Lefèvre Marino. All rights reserved.
 //
 
-struct PullRequest {
-    
-    var title: String?
-    var body: String?
-    var date: String?
-    var url: String?
-    var state: String?
-    var ownerNick: String?
-    var ownerAvatarUrl: String?
-    
-    init(title: String? = nil, body: String? = nil, date: String? = nil, url: String? = nil, state: String? = nil, ownerNick: String? = nil, ownerAvatarUrl: String? = nil) {
-        self.title = title
-        self.body = body
-        self.date = date
-        self.url = url
-        self.state = state
-        self.ownerNick = ownerNick
-        self.ownerAvatarUrl = ownerAvatarUrl
-    }
-    
-//    static func totalStates(_ pulls: [PullRequest]) -> (Int, Int) {
-    
-//        var totals = (open: 0, closed: 0)
-//
-//        for pull in pulls {
-//            switch pull.state {
-//            case "open":
-//                totals.open += 1
-//            case "closed":
-//                totals.closed += 1
-//            default:
-//                break;
-//            }
-//        }
-//
-//        return totals
-//    }
-    
+enum PullRequestState: Int {
+    case closed, open
 }
 
+struct PullRequest: Decodable {
+    
+    var id: Int?
+    var title: String?
+    var description: String?
+    var date: String?
+    var author: Author?
+    var state: String?
+    var url: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case description = "body"
+        case date = "created_at"
+        case author = "user"
+        case url = "html_url"
+    }
+    
+    public init(from decoder: Decoder) throws {
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(Int.self, forKey: .id)
+        self.title = try container.decodeIfPresent(String.self, forKey: .title)
+        self.description = try container.decodeIfPresent(String.self, forKey: .description)
+        self.date = try container.decodeIfPresent(String.self, forKey: .date)
+        self.author = try container.decodeIfPresent(Author.self, forKey: .author)
+        self.url = try container.decodeIfPresent(String.self, forKey: .url)
+    }
+}
+
+struct Author: User, Decodable {
+    var login: String?
+    var avatarUrl: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case login
+        case avatarUrl = "avatar_url"
+    }
+}

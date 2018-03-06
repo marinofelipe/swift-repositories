@@ -9,12 +9,12 @@
 import Foundation
 
 struct RepositoriesResponse {
-    let repositories: [Repository]?
+    let repositories: [RepositoryViewModel]?
     let total: Int?
     let statusCode: NetworkingStatus
     let message: String?
     
-    init(_ repositories: [Repository]?, total: Int? = nil, status: NetworkingStatus, message: String? = nil) {
+    init(_ repositories: [RepositoryViewModel]?, total: Int? = nil, status: NetworkingStatus, message: String? = nil) {
         self.repositories = repositories
         self.total = total
         self.statusCode = status
@@ -35,7 +35,9 @@ class RepositoriesHandler {
             guard response?.data != nil else { return }
             
             let repositoriesArray = try? JSONDecoder().decode(RepositoriesArray.self, from: response!.data!)
-            let success = RepositoriesResponse(repositoriesArray?.repositories, total: repositoriesArray?.total, status: .success)
+            
+            let repositoriesViewModel = repositoriesArray?.repositories.map({ return RepositoryViewModel(repository: $0) })
+            let success = RepositoriesResponse(repositoriesViewModel, total: repositoriesArray?.total, status: .success)
             
             completion(success)
         }) { response, _ in

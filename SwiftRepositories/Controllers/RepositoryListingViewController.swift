@@ -12,13 +12,7 @@ import SwiftMessages
 class RepositoryListingViewController: UIViewController {
     
     //repositories
-    var viewModel = RepositoryListingViewModel()
-    var repositories: [Repository]? {
-        didSet {
-            // TODO: Save Repositories for offline access
-            collectionView.reloadData()
-        }
-    }
+    var viewModel = RepositoriesListViewModel()
     @IBOutlet weak var collectionView: UICollectionView!
     
     var searchingFilter: String?
@@ -139,7 +133,7 @@ extension RepositoryListingViewController: UISearchBarDelegate {
         collectionView.reloadData()
     }
     
-    // MARK: Search Bar Actions    
+    // MARK: Search Bar Actions
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         collectionView.reloadData()
         searchBar.resignFirstResponder()
@@ -184,3 +178,4 @@ extension RepositoryListingViewController {
         SwiftMessages.show(view: view)
     }
 }
+
