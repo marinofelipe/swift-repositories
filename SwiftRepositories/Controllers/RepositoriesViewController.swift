@@ -16,11 +16,7 @@ class RepositoriesViewController: RepositoryListingViewController {
     var draggingRepository: RepositoryViewModel?
     fileprivate var repositoriesPaging = RepositoriesPaging()
     fileprivate var refreshControl: RefreshControl?
-    let animationController = AnimatedTransitioningController()
     var didShowNotConnectedSnack: Bool = false
-    
-    var cellImageView = UIImageView()
-    var imageFrameOnMainView = CGRect.zero
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,38 +167,11 @@ class RepositoriesViewController: RepositoryListingViewController {
             })
         }
     }
-    
-    // MARK: Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.Segue.pullRequests, let pullRequestsVC = segue.destination as? PullRequestsViewController {
-            var repository: RepositoryViewModel?
-            let selectedIndex = collectionView.indexPathsForSelectedItems?.first?.item
-            
-            guard selectedIndex != nil else { return }
-            
-            if let filter = searchingFilter {
-                repository = viewModel.repositories!.filter({ $0.name?.range(of: filter) != nil })[selectedIndex!]
-            } else {
-                repository = viewModel.repositories![selectedIndex!]
-            }
-            
-            pullRequestsVC.repository = repository
-        }
-    }
 }
 
 // MARK: UICollectionViewDelegate
-extension RepositoriesViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? RepositoryCollectionViewCell {
-            cellImageView = cell.imageView
-            imageFrameOnMainView = self.view.convert(cell.imageView.frame, from: cell.ownerView)
-        }
-        
-        performSegue(withIdentifier: Constants.Segue.pullRequests, sender: self)
-    }
-    
+extension RepositoriesViewController {
+
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         let referenceItemToNextFetch = (repositoriesPaging.itemsPerPage * repositoriesPaging.currentPage) - 2 //breath

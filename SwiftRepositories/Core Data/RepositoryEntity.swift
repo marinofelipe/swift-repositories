@@ -48,7 +48,7 @@ public class RepositoryEntity: NSManagedObject {
             } else {
                 stringPredicate = "NO"
             }
-            predicate = NSPredicate(format: "favorites == \(stringPredicate)")
+            predicate = NSPredicate(format: "isFavorite == \(stringPredicate)")
         }
         
         var sort = [NSSortDescriptor]()

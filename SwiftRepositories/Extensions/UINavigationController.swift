@@ -23,7 +23,7 @@ extension UINavigationController: UINavigationControllerDelegate {
         let animationController = AnimatedTransitioningController()
         animationController.operation = operation
         
-        if let repositoriesVC = self.viewControllers.first as? RepositoriesViewController {
+        if let repositoriesVC = self.viewControllers.first as? RepositoryListingViewController {
             animationController.image = repositoriesVC.cellImageView.image
             animationController.startingFrameOnMainView = repositoriesVC.imageFrameOnMainView
             

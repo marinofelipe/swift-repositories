@@ -21,6 +21,10 @@ class RepositoryListingViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var emptyListLabel: UILabel!
     
+    let animationController = AnimatedTransitioningController()
+    var cellImageView = UIImageView()
+    var imageFrameOnMainView = CGRect.zero
+    
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +78,37 @@ class RepositoryListingViewController: UIViewController {
         } else {
             //TODO: add search on earlier versions
         }
+    }
+    
+    // MARK: Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Segue.pullRequests, let pullRequestsVC = segue.destination as? PullRequestsViewController {
+            var repository: RepositoryViewModel?
+            let selectedIndex = collectionView.indexPathsForSelectedItems?.first?.item
+            
+            guard selectedIndex != nil else { return }
+            
+            if let filter = searchingFilter {
+                repository = viewModel.repositories!.filter({ $0.name?.range(of: filter) != nil })[selectedIndex!]
+            } else {
+                repository = viewModel.repositories![selectedIndex!]
+            }
+            
+            pullRequestsVC.repository = repository
+        }
+    }
+}
+
+// MARK: UICollectionViewDelegate
+extension RepositoryListingViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? RepositoryCollectionViewCell {
+            cellImageView = cell.imageView
+            imageFrameOnMainView = self.view.convert(cell.imageView.frame, from: cell.ownerView)
+        }
+        
+        performSegue(withIdentifier: Constants.Segue.pullRequests, sender: self)
     }
 }
 
@@ -146,6 +181,7 @@ extension RepositoryListingViewController: UISearchBarDelegate {
     }
 }
 
+// MARK: GridHeightLayoutDelegate
 extension RepositoryListingViewController: GridHeightLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForCellAt indexPath: IndexPath, withWidth width: CGFloat) -> CGFloat {
         

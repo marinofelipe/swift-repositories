@@ -22,6 +22,8 @@ class FavoritesViewController: RepositoryListingViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        fetchFavorites()
+        
         if let nav = tabBarController?.viewControllers?.first as? UINavigationController,
             let vc = nav.viewControllers.first as? RepositoriesViewController {
             
@@ -39,14 +41,9 @@ class FavoritesViewController: RepositoryListingViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: Fetch favorites
+    func fetchFavorites() {
+        viewModel.repositories = RepositoryEntity.fetchAll(favorites: true)?.map({ RepositoryViewModel(repositoryEntity: $0) })
+        collectionView.reloadData()
     }
-    */
 }
