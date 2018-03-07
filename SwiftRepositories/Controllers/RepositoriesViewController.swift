@@ -147,13 +147,11 @@ class RepositoriesViewController: RepositoryListingViewController {
         } else if gesture.state == .changed {
             cellSnapshotImageView?.center = viewTouchedPoint
         } else {
-            //TODO: Send to other controller
             if let cellSnapshotImageView = cellSnapshotImageView,
                 cellSnapshotImageView.frame.origin.x > (view.frame.width - cellSnapshotImageView.frame.width / 2 - 20) {
                 if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                    draggingRepository?.isFavorite = true
                     appDelegate.draggingToFavorites()
-                    
-                    //save sent item as favorite
                 }
             }
             

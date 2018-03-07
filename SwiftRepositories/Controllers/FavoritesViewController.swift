@@ -10,8 +10,6 @@ import UIKit
 
 class FavoritesViewController: RepositoryListingViewController {
     
-     var addingItem: RepositoryViewModel?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,17 +21,6 @@ class FavoritesViewController: RepositoryListingViewController {
         super.viewWillAppear(animated)
         
         fetchFavorites()
-        
-        if let nav = tabBarController?.viewControllers?.first as? UINavigationController,
-            let vc = nav.viewControllers.first as? RepositoriesViewController {
-            
-            addingItem = vc.draggingRepository
-            
-            
-            //TODO:
-            //update item as favorite in core data
-            //Collection insert row animating
-        }
     }
 
     override func didReceiveMemoryWarning() {
