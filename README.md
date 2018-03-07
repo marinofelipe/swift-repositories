@@ -21,7 +21,7 @@ Add your TOKEN to info.plist "ApiToken" key
 
 # How to Compile
 
-```$ git clone https://github.com/marinofelipe/swift-repositories```
+```$ git clone https://github.com/marinofelipe/swift-repositories.git```
 
 Install dependencies
 
