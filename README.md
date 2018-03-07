@@ -27,5 +27,16 @@ Install dependencies
 
 ```$ pod install```
 
-
 # Screenshoots
+
+Search             |  Favorites                 
+:-------------------------:|:-------------------------:|
+<img src="screenshots/search.PNG" width="300">  |  <img src="screenshots/favorites.PNG" width="300"> 
+
+Landscape
+:-------------------------:
+<img src="screenshots/landscape.PNG" width="600">
+
+Pull Requests             |  Web View                
+:-------------------------:|:-------------------------:|
+<img src="screenshots/pullRequests.PNG" width="300"> | <img src="screenshots/webView.PNG" width="300">
