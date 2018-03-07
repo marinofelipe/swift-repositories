@@ -31,6 +31,11 @@ class RepositoriesViewController: RepositoryListingViewController {
         view.addGestureRecognizer(longPress)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.fetchSavedRepositories()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -68,18 +73,10 @@ class RepositoriesViewController: RepositoryListingViewController {
                         }
                         guard self.viewModel.repositories != nil else {
                             self.viewModel.repositories = response?.repositories
- 
-                            try? RepositoryEntity.deleteAll()
-                            let _ = self.viewModel.repositories?.map({ return RepositoryEntity(with: $0) })
-                            try? CoreDataStack.shared.saveContext()
-                            
                             self.collectionView.reloadData()
                             completion?()
                             return
                         }
-                        
-                        let _ = response?.repositories?.map({ return RepositoryEntity(with: $0) })
-                        try? CoreDataStack.shared.saveContext()
                         
                         guard self.repositoriesPaging.currentPage != 1 else { return }
                         
@@ -94,8 +91,7 @@ class RepositoriesViewController: RepositoryListingViewController {
                         if response?.statusCode == .offline {
                             theme = .warning
                             
-                            self.viewModel.repositories = RepositoryEntity.fetchAll()?.map({ return RepositoryViewModel(repositoryEntity: $0) })
-                            self.collectionView.reloadData()
+                            self.fetchSavedRepositories()
                         }
                         
                         if self.viewModel.repositories == nil {
@@ -110,6 +106,11 @@ class RepositoriesViewController: RepositoryListingViewController {
                 }
             }
         }
+    }
+    
+    private func fetchSavedRepositories() {
+        self.viewModel.repositories = RepositoryEntity.fetchAll()?.map({ return RepositoryViewModel(repositoryEntity: $0) })
+        self.collectionView.reloadData()
     }
     
     // MARK: Long Press

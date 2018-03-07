@@ -38,6 +38,17 @@ public class RepositoryEntity: NSManagedObject {
         self.isFavorite = repository.isFavorite
     }
     
+    // MARK: Update
+    func update(with repository: RepositoryViewModel) {
+        self.id = Int32(repository.id)
+        self.name = repository.name
+        self.body_description = repository.description
+        self.owner_username = repository.ownerUsername
+        self.owner_avatar_url = repository.ownerAvatarUrl
+        self.stars_count = Int32(repository.starsCount ?? "0") ?? 0
+        self.forks_count = repository.forksCount
+    }
+    
     // MARK: Fetch
     class func fetchAll(favorites: Bool? = nil) -> [RepositoryEntity]? {
         var predicate: NSPredicate?

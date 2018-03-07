@@ -60,6 +60,15 @@ extension RepositoryViewModel {
         if let forksCount = repository.forksCount {
             self.forksCount = String(forksCount)
         }
+        
+        // MARK: Remap or create Repository Entity
+        guard let repositoryEntity = RepositoryEntity.fetch(withId: id) else {
+            let _ = RepositoryEntity(with: self)
+            try? CoreDataStack.shared.saveContext()
+            return
+        }
+        
+        repositoryEntity.update(with: self)
     }
     
     // MARK: init from Core Data
