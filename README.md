@@ -4,10 +4,10 @@
 [![Coverage Status](https://coveralls.io/repos/github/marinofelipe/swift-repositories/badge.svg?branch=master)](https://coveralls.io/github/marinofelipe/swift-repositories?branch=master)
 
 # Swift Repositories
-Shows swift repositories ordered by stars.
-User is able to favorite by selecting the repository star button or dragging to the favorites screen.
-The transition to and from pull requests were made to make the app more elegant.
-Offline persistence is working and the app can be used in landscape as well.  
+Shows swift repositories ordered by stars. <br>
+User is able to favorite by selecting the repository star button or dragging to the favorites screen. <br>
+The transition to and from pull requests were made to make the app more elegant. <br>
+Offline persistence is working and the app can be used in landscape as well.
 
 # Setup 
 Install [CocoaPods](https://cocoapods.org)
