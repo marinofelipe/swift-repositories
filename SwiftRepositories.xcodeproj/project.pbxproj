@@ -21,6 +21,10 @@
 		D509C846204EAAB3008B521F /* SwiftRepositories.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D509C844204EAAB3008B521F /* SwiftRepositories.xcdatamodeld */; };
 		D509C848204EAB5E008B521F /* RepositoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D509C847204EAB5E008B521F /* RepositoryEntity.swift */; };
 		D509C84A204EABB5008B521F /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D509C849204EABB5008B521F /* CoreDataStack.swift */; };
+		D53393AD205009F0001F0BC7 /* PullRequestsHandlerSuccessStubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53393AC205009F0001F0BC7 /* PullRequestsHandlerSuccessStubTests.swift */; };
+		D53393AF20500B02001F0BC7 /* RepositoriesHandlerSuccessStubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53393AE20500B02001F0BC7 /* RepositoriesHandlerSuccessStubTests.swift */; };
+		D53393B120500F43001F0BC7 /* PullRequestsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53393B020500F43001F0BC7 /* PullRequestsViewControllerTests.swift */; };
+		D53393B320500F4F001F0BC7 /* RepositoryEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53393B220500F4F001F0BC7 /* RepositoryEntityTests.swift */; };
 		D53E0CDC2047AAF400DC8759 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0CDB2047AAF400DC8759 /* AppDelegate.swift */; };
 		D53E0CE12047AAF400DC8759 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D53E0CDF2047AAF400DC8759 /* Main.storyboard */; };
 		D53E0CE62047AAF400DC8759 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D53E0CE52047AAF400DC8759 /* Assets.xcassets */; };
@@ -43,6 +47,9 @@
 		D53E0D70204B45BF00DC8759 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D6F204B45BF00DC8759 /* UIImage.swift */; };
 		D53E0D72204B8AC200DC8759 /* UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D71204B8AC200DC8759 /* UITabBarController.swift */; };
 		D53E0D74204B925A00DC8759 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E0D73204B925A00DC8759 /* UIViewController.swift */; };
+		D57C62472050098100D85E18 /* pullRequests.json in Resources */ = {isa = PBXBuildFile; fileRef = D57C62462050098100D85E18 /* pullRequests.json */; };
+		D5D4A4C72050057700CED48A /* HTTPNetworkingStubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D4A4C62050057700CED48A /* HTTPNetworkingStubTests.swift */; };
+		D5D4A4C9205005F400CED48A /* repositories.json in Resources */ = {isa = PBXBuildFile; fileRef = D5D4A4C8205005F400CED48A /* repositories.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +81,10 @@
 		D509C845204EAAB3008B521F /* SwiftRepositories.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SwiftRepositories.xcdatamodel; sourceTree = "<group>"; };
 		D509C847204EAB5E008B521F /* RepositoryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryEntity.swift; sourceTree = "<group>"; };
 		D509C849204EABB5008B521F /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		D53393AC205009F0001F0BC7 /* PullRequestsHandlerSuccessStubTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsHandlerSuccessStubTests.swift; sourceTree = "<group>"; };
+		D53393AE20500B02001F0BC7 /* RepositoriesHandlerSuccessStubTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesHandlerSuccessStubTests.swift; sourceTree = "<group>"; };
+		D53393B020500F43001F0BC7 /* PullRequestsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsViewControllerTests.swift; sourceTree = "<group>"; };
+		D53393B220500F4F001F0BC7 /* RepositoryEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryEntityTests.swift; sourceTree = "<group>"; };
 		D53E0CD82047AAF400DC8759 /* SwiftRepositories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftRepositories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D53E0CDB2047AAF400DC8759 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D53E0CE02047AAF400DC8759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -100,6 +111,9 @@
 		D53E0D6F204B45BF00DC8759 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		D53E0D71204B8AC200DC8759 /* UITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarController.swift; sourceTree = "<group>"; };
 		D53E0D73204B925A00DC8759 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		D57C62462050098100D85E18 /* pullRequests.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = pullRequests.json; sourceTree = "<group>"; };
+		D5D4A4C62050057700CED48A /* HTTPNetworkingStubTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPNetworkingStubTests.swift; sourceTree = "<group>"; };
+		D5D4A4C8205005F400CED48A /* repositories.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = repositories.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +210,13 @@
 			isa = PBXGroup;
 			children = (
 				D53E0CF32047AAF600DC8759 /* RepositoriesViewControllerTests.swift */,
+				D53393B020500F43001F0BC7 /* PullRequestsViewControllerTests.swift */,
+				D53393B220500F4F001F0BC7 /* RepositoryEntityTests.swift */,
+				D5D4A4C62050057700CED48A /* HTTPNetworkingStubTests.swift */,
+				D53393AC205009F0001F0BC7 /* PullRequestsHandlerSuccessStubTests.swift */,
+				D53393AE20500B02001F0BC7 /* RepositoriesHandlerSuccessStubTests.swift */,
+				D5D4A4C8205005F400CED48A /* repositories.json */,
+				D57C62462050098100D85E18 /* pullRequests.json */,
 				D53E0CF52047AAF600DC8759 /* Info.plist */,
 			);
 			path = SwiftRepositoriesTests;
@@ -375,6 +396,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D57C62472050098100D85E18 /* pullRequests.json in Resources */,
+				D5D4A4C9205005F400CED48A /* repositories.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,7 +554,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D53393B320500F4F001F0BC7 /* RepositoryEntityTests.swift in Sources */,
+				D53393AF20500B02001F0BC7 /* RepositoriesHandlerSuccessStubTests.swift in Sources */,
 				D53E0CF42047AAF600DC8759 /* RepositoriesViewControllerTests.swift in Sources */,
+				D53393B120500F43001F0BC7 /* PullRequestsViewControllerTests.swift in Sources */,
+				D53393AD205009F0001F0BC7 /* PullRequestsHandlerSuccessStubTests.swift in Sources */,
+				D5D4A4C72050057700CED48A /* HTTPNetworkingStubTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,7 +706,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DABD23873B37EE539497750 /* Pods-SwiftRepositories.debug.xcconfig */;
 			buildSettings = {
-				API_TOKEN = "token 89817332a184e53c61461f36db676cff136468a5";
+				API_TOKEN = "token fde1d6da24d945c38461aff33a7622c60627d07b";
 				API_URL = "https://api.github.com";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -697,7 +725,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 384C75D1A8F0343D3E7CE5BB /* Pods-SwiftRepositories.release.xcconfig */;
 			buildSettings = {
-				API_TOKEN = "token 89817332a184e53c61461f36db676cff136468a5";
+				API_TOKEN = "token fde1d6da24d945c38461aff33a7622c60627d07b";
 				API_URL = "https://api.github.com";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

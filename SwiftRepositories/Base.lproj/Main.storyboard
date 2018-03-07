@@ -308,14 +308,14 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="373" height="112"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Título do pull request" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPR-x7-qWU">
-                                                            <rect key="frame" x="5" y="5" width="363" height="23"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Título do pull request" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPR-x7-qWU">
+                                                            <rect key="frame" x="5" y="5" width="363" height="23.5"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                             <color key="textColor" red="0.24513187510000001" green="0.55981980180000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Body to pull request lorem ipsum dolor sit amet lorem ipsum sit amet lorem lorem sit ipsum" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="e2b-p9-Fsl">
-                                                            <rect key="frame" x="5" y="33" width="363" height="16.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Body to pull request lorem ipsum dolor sit amet lorem ipsum sit amet lorem lorem sit ipsum" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="e2b-p9-Fsl">
+                                                            <rect key="frame" x="5" y="33.5" width="363" height="32.5"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -399,14 +399,14 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="373" height="112"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Título do pull request" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gop-uc-qwV">
-                                                            <rect key="frame" x="5" y="5" width="363" height="23"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Título do pull request" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gop-uc-qwV">
+                                                            <rect key="frame" x="5" y="5" width="363" height="23.5"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                             <color key="textColor" red="0.24513187510000001" green="0.55981980180000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Body to pull request lorem ipsum dolor sit amet lorem ipsum sit amet lorem lorem sit ipsum" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBK-df-IdZ">
-                                                            <rect key="frame" x="5" y="33" width="363" height="16.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Body to pull request lorem ipsum dolor sit amet lorem ipsum sit amet lorem lorem sit ipsum" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBK-df-IdZ">
+                                                            <rect key="frame" x="5" y="33.5" width="363" height="32.5"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -740,7 +740,7 @@
                                             <outlet property="imageView" destination="Yd3-x8-3fb" id="ZRl-3b-zRq"/>
                                             <outlet property="nameLabel" destination="VAn-5x-PWd" id="7Zm-Ed-G9m"/>
                                             <outlet property="ownerUsernameLabel" destination="ant-y4-e1v" id="bR3-J0-OVX"/>
-                                            <outlet property="ownerView" destination="dw9-lL-dQ0" id="ozp-Jv-6x1"/>
+                                            <outlet property="ownerView" destination="dw9-lL-dQ0" id="bNO-zN-LD7"/>
                                             <outlet property="starsCountLabel" destination="sC0-tO-w82" id="VhX-LS-x6D"/>
                                             <outlet property="starsImageView" destination="V8b-3y-mg7" id="wnO-Ut-UaP"/>
                                         </connections>
@@ -1146,6 +1146,6 @@ aUd7R35HgwAAAAAAAAIBAAAAAAAAAFkAAAAAAAAAAAAAAAAAAEeFA
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="h6x-Tf-bJR"/>
-        <segue reference="Hau-3X-QXU"/>
+        <segue reference="6IM-bg-Dh1"/>
     </inferredMetricsTieBreakers>
 </document>

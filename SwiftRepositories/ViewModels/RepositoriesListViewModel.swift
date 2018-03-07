@@ -61,14 +61,7 @@ extension RepositoryViewModel {
             self.forksCount = String(forksCount)
         }
         
-        // MARK: Remap or create Repository Entity
-        guard let repositoryEntity = RepositoryEntity.fetch(withId: id) else {
-            let _ = RepositoryEntity(with: self)
-            try? CoreDataStack.shared.saveContext()
-            return
-        }
-        
-        repositoryEntity.update(with: self)
+        remapOrCreateEntity()
     }
     
     // MARK: init from Core Data
@@ -81,5 +74,29 @@ extension RepositoryViewModel {
         self.forksCount = repositoryEntity.forks_count
         self.starsCount = String(repositoryEntity.stars_count)
         self.isFavorite = repositoryEntity.isFavorite
+    }
+    
+    // MARK: Remap or create Repository Entity
+    func remapOrCreateEntity() {
+        guard let repositoryEntity = RepositoryEntity.fetch(withId: id) else {
+            let _ = RepositoryEntity(with: self)
+            try? CoreDataStack.shared.saveContext()
+            return
+        }
+        
+        repositoryEntity.update(with: self)
+    }
+    
+    // MARK: convenience test inits
+    init(id: Int) {
+        self.id = id
+        
+        remapOrCreateEntity()
+    }
+    
+    init(name: String, ownerUsername: String) {
+        self.id = 0
+        self.name = name
+        self.ownerUsername = ownerUsername
     }
 }

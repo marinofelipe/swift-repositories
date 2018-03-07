@@ -38,10 +38,21 @@ class RepositoriesViewControllerTests: XCTestCase {
     }
 
     func testCollectionAfterLoading() {
-        XCTAssertEqual(underTestController.collectionView.numberOfItems(inSection: 0), 0)
+        underTestController.viewModel.repositories = RepositoryEntity.fetchAll()?.map({ RepositoryViewModel(repositoryEntity: $0) })
+        XCTAssertEqual(underTestController.collectionView.numberOfItems(inSection: 0), underTestController.viewModel.repositories?.count)
     }
     
-    // TODO: test after fetching
+    // MARK: Collection View delegate and datasource
+    func testIfConformsToCollectionViewDataSource() {
+        XCTAssert(underTestController.conforms(to: UICollectionViewDataSource.self))
+        XCTAssertTrue(underTestController.responds(to: #selector(underTestController.collectionView(_:numberOfItemsInSection:))))
+        XCTAssertTrue(underTestController.responds(to: #selector(underTestController.collectionView(_:cellForItemAt:))))
+    }
+    
+    func testIfConformsToCollectionViewDelegate() {
+        XCTAssert((underTestController.conforms(to: UICollectionViewDelegate.self)))
+        XCTAssertTrue(underTestController.responds(to: #selector(underTestController.collectionView(_:didSelectItemAt:))))
+    }
     
     // MARK: Search
     func testSearchingWithInvalidRepositoryName() {
@@ -64,11 +75,26 @@ class RepositoriesViewControllerTests: XCTestCase {
         underTestController.searchBar(UISearchBar(), textDidChange: "Test")
         XCTAssertEqual(underTestController.collectionView.numberOfItems(inSection: 0), 3)
     }
+    
+    // MARK: Dragging to favorites
+    func testDraggingToFavorites() {
+        underTestController.fetchRepositories()
+        underTestController.draggingRepository = underTestController.viewModel.repositories?.first
+        underTestController.draggingRepository?.isFavorite = true
+        
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.draggingToFavorites()
+        }
+        
+        if let tabController = UIApplication.shared.keyWindow?.rootViewController as? UITabBarController {
+            XCTAssertTrue(tabController.selectedIndex == 1)
+        }
+    }
 
-    // MARK: API Performance
-    func testAPIperformance() {
+    // MARK: API fetch performance
+    func testRepositoriesFetchPerformance() {
         self.measure {
-            // repositories call
+            underTestController.fetchRepositories()
         }
     }
 }

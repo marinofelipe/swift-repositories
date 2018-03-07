@@ -53,7 +53,7 @@ class RepositoriesViewController: RepositoryListingViewController {
     }
     
     // MARK: Data
-    private func fetchRepositories(completion: (() -> Void)? = nil) {
+    func fetchRepositories(completion: (() -> Void)? = nil) {
         DispatchQueue.global(qos: .userInteractive).async {
             RepositoriesHandler.get(atPage: self.repositoriesPaging.currentPage) { response in
                 DispatchQueue.main.async {
@@ -108,7 +108,7 @@ class RepositoriesViewController: RepositoryListingViewController {
         }
     }
     
-    private func fetchSavedRepositories() {
+    func fetchSavedRepositories() {
         self.viewModel.repositories = RepositoryEntity.fetchAll()?.map({ return RepositoryViewModel(repositoryEntity: $0) })
         self.collectionView.reloadData()
     }

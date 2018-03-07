@@ -29,7 +29,7 @@ class PullRequestsViewController: UIViewController {
     @IBOutlet weak var noClosedPullRequestsLabel: UILabel!
     
     var repository: RepositoryViewModel?
-    fileprivate var viewModel = PullRequestsListViewModel() {
+    var viewModel = PullRequestsListViewModel() {
         didSet {
             openPullRequests = viewModel.pullRequests?.filter({ $0.state == PullRequestState.open.rawValue })
             closedPullRequests = viewModel.pullRequests?.filter({ $0.state == PullRequestState.closed.rawValue })
@@ -78,7 +78,7 @@ class PullRequestsViewController: UIViewController {
     }
     
     // MARK: Data
-    private func fetchPullRequests(completion: (() -> Void)? = nil) {
+    func fetchPullRequests(completion: (() -> Void)? = nil) {
         DispatchQueue.global(qos: .userInteractive).async {
             PullRequestsHandler.getAll(fromRepository: self.repository, completion: { response in
                 DispatchQueue.main.async {

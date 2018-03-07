@@ -49,7 +49,7 @@ class HTTPNetworking {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = method.rawValue
         request.addValue(Constants.API.token, forHTTPHeaderField: "Authorization")
-        request.timeoutInterval = 45
+        request.timeoutInterval = 20
         
         if let parameters = parameters {
             request.httpBody = try? JSONSerialization.data(withJSONObject: parameters)
@@ -112,3 +112,17 @@ class HTTPNetworking {
     }
 }
 
+extension String {
+    
+    func fromBase64() -> String? {
+        guard let data = Data(base64Encoded: self) else {
+            return nil
+        }
+        
+        return String(data: data, encoding: .utf8)
+    }
+    
+    func toBase64() -> String {
+        return Data(self.utf8).base64EncodedString()
+    }
+}
