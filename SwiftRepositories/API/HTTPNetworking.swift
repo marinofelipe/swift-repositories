@@ -48,7 +48,7 @@ class HTTPNetworking {
         
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = method.rawValue
-        request.addValue(Constants.API.token, forHTTPHeaderField: "Authorization")
+        request.addValue("token \(Constants.API.token)", forHTTPHeaderField: "Authorization")
         request.timeoutInterval = 20
         
         if let parameters = parameters {

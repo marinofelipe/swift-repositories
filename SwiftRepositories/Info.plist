@@ -2,10 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ApiToken</key>
+	<string>eca164a9cf6fc050d8bfceb8fefb5c3c06c53280</string>
 	<key>ApiUrl</key>
 	<string>${API_URL}</string>
-	<key>ApiToken</key>
-	<string>${API_TOKEN}</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

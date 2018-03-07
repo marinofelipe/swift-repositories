@@ -706,7 +706,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DABD23873B37EE539497750 /* Pods-SwiftRepositories.debug.xcconfig */;
 			buildSettings = {
-				API_TOKEN = "token fde1d6da24d945c38461aff33a7622c60627d07b";
 				API_URL = "https://api.github.com";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -725,7 +724,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 384C75D1A8F0343D3E7CE5BB /* Pods-SwiftRepositories.release.xcconfig */;
 			buildSettings = {
-				API_TOKEN = "token fde1d6da24d945c38461aff33a7622c60627d07b";
 				API_URL = "https://api.github.com";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
