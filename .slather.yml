@@ -1,11 +1,11 @@
 # .slather.yml
 
-# ci_service: travis_ci
-# coverage_service: coveralls
+ci_service: travis_ci
+coverage_service: coveralls
 xcodeproj: SwiftRepositories.xcodeproj
 workspace: SwiftRepositories.xcworkspace
 scheme: SwiftRepositories
-# source_directory: SwiftRepositories/
+source_directory: SwiftRepositories/
 ignore:	
   - ExamplePodCode/*
   - ProjectTestsGroup/*
